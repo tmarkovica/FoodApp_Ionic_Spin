@@ -1,0 +1,14 @@
+<ion-content class="center">
+
+  <ion-icon [ngClass]="{'active': !service.logiran}" name="wifi-outline"></ion-icon>
+  <ion-thumbnail id="appLogo">
+    <ion-img src="assets\images\LOGO2-01 1.png"></ion-img>
+  </ion-thumbnail>
+
+  <p>{{service.logiran}}</p>
+
+  <ion-input placeholder="Enter username" type="text" [(ngModel)]="username" id="usernameInput"></ion-input>
+  <ion-input placeholder="Input password" type="password" [(ngModel)]="password" id="passwordInput"></ion-input>
+  <ion-button color="primary" (click)=logInClick()>Log in</ion-button>
+
+</ion-content>
