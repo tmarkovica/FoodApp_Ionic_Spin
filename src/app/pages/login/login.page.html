@@ -1,14 +1,15 @@
-<ion-content class="center">
+<ion-content>
 
   <ion-icon [ngClass]="{'active': !service.logiran}" name="wifi-outline"></ion-icon>
-  <ion-thumbnail id="appLogo">
-    <ion-img src="assets\images\LOGO2-01 1.png"></ion-img>
-  </ion-thumbnail>
+  <ion-img src="assets\images\LOGO2-01 1.png" id="appLogo"></ion-img>
 
-  <p>{{service.logiran}}</p>
+  <div class="center">
+    <ion-input placeholder="Enter username" type="text" [(ngModel)]="username" class="separate userInput"></ion-input>
+    <ion-input placeholder="Input password" type="password" [(ngModel)]="password" class="separate userInput"></ion-input>
+    <ion-button color="primary" (click)=logInClick()>Log in</ion-button>
+    <a [routerLink]="['/detail']" (click)="showRegistration = !showRegistration" class="center">Registracija</a>
+  </div> 
 
-  <ion-input placeholder="Enter username" type="text" [(ngModel)]="username" id="usernameInput"></ion-input>
-  <ion-input placeholder="Input password" type="password" [(ngModel)]="password" id="passwordInput"></ion-input>
-  <ion-button color="primary" (click)=logInClick()>Log in</ion-button>
+  <app-registration [hidden]="!showRegistration"></app-registration>
 
 </ion-content>

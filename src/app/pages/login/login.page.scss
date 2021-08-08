@@ -1,12 +1,29 @@
-#appLogo {
-    margin: 50px
-}
-
-.center {
-    width: 500px;
-    margin: auto
-  }
-
 .active {
     color: red;
 }
+
+.center {
+    margin: 15px;
+    margin-left: 20%; 
+    width: 60%;
+}
+
+.separate {
+    margin: 4px;
+}
+
+.userInput {
+    border-bottom: 1px grey solid;
+    //background-color: #d9ed92;
+}
+
+#appLogo {
+    margin-left: 20%;
+    margin-bottom: 30px;
+    width: 60%;
+    height: 100px;
+}
+/*
+ion-content {
+    --ion-background-color: #b5e48c;
+}*/

@@ -14,11 +14,12 @@ export class LoginPage implements OnInit {
     console.log(this.service.logiran);
   }
 
-  username: string = "vedran.prpic1@gmail.com";
-  password: string = "lozinka";
+  username: string = ""; //"vedran.prpic1@gmail.com";
+  password: string = ""; //"lozinka";
+
+  showRegistration:boolean = false;
 
   logInClick() {
     this.service.login(this.username, this.password);
   }
-
 }
