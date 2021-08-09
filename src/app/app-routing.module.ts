@@ -4,8 +4,29 @@ import { LoginPageModule } from './pages/login/login.module';
 
 const routes: Routes = [
   {
+    path: "web",
+    children:[
+      /*{
+        path: '**',
+        loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+      },*/
+      {
+        path: 'dashboard',
+        loadChildren: () => import('./pages/web/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+      },
+      {
+        path: 'new-meal',
+        loadChildren: () => import('./pages/web/new-meal/new-meal.module').then( m => m.NewMealPageModule)
+      },
+      {
+        path: 'menu',
+        loadChildren: () => import('./pages/web/menu/menu.module').then( m => m.MenuPageModule)
+      }
+    ]
+  },
+  {
     path: '**',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+      loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   }
 ];
 @NgModule({
