@@ -27,8 +27,7 @@ export class RegistrationComponent implements OnInit {
     
     console.log("isOwner: " + this.restorauntOwner);
 
-    //this.service.registerUser(this.username, this.email, this.password, this.restorauntOwner, this.companyName, this.status);
-    this.service.registerCompany(this.companyName, this.status, this.status);
+    this.service.registerUser(this.username, this.email, this.password, this.restorauntOwner, this.companyName, this.status);
         
     this.username = "";
     this.email = "";

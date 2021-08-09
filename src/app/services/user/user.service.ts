@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { User } from 'src/app/interfaces/user';
+import { Router } from '@angular/router';
 
-interface User {
-  name: string,
-  companyId: number,
-  userId: number,
-  companyName: string,
-  isAdmin: boolean;  
-}
 
 interface RegisteredUser {
   userid;
@@ -24,13 +19,13 @@ interface Company {
 })
 export class UserService {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient, private router : Router) { }
 
   logiran : boolean = false;
 
   url:string="https://jupitermobiletest.jupiter-software.com:30081/jupitermobilex/gen/api/food";
 
-  user: User;
+  user: User = null;
 
   login(username: string, password: string) {
     console.log(`loggin in... username: ${username}; password: ${password}`);
@@ -53,6 +48,8 @@ export class UserService {
         console.log("User logged in.");
         console.log(res);
         this.user = res[0];
+
+        this.router.navigate(['/web/dashboard'], {replaceUrl : true});
       }
       else {
         console.log("This user doesn't exit.");
@@ -91,7 +88,7 @@ export class UserService {
     });
   }
 
-  registerCompany(name: string, status: number, userid: number) {
+  private registerCompany(name: string, status: number, userid: number) {
     this.http.post(this.url, {
       "db": "Food",
       "queries": [
@@ -115,5 +112,10 @@ export class UserService {
         console.log("Problem registering company.");
       }*/
     });
+  }
+
+  logOut() {
+    this.user = null;
+    this.router.navigate(['/login'], {replaceUrl : true});
   }
 }
