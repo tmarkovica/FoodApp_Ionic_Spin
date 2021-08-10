@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/interfaces/user';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 
 interface RegisteredUser {
@@ -21,7 +22,7 @@ export class UserService {
 
   constructor(private http : HttpClient, private router : Router) { }
 
-  logiran : boolean = false;
+  logiran : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   url:string="https://jupitermobiletest.jupiter-software.com:30081/jupitermobilex/gen/api/food";
 
@@ -44,7 +45,7 @@ export class UserService {
         ]
     }).subscribe((res: Array<User>) => {
       if (res.length==1) {
-        this.logiran = true;
+        this.logiran.next(true);
         console.log("User logged in.");
         console.log(res);
         this.user = res[0];
@@ -116,6 +117,7 @@ export class UserService {
 
   logOut() {
     this.user = null;
+    this.logiran.next(false);
     this.router.navigate(['/login'], {replaceUrl : true});
   }
 }

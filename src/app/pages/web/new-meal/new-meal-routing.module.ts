@@ -5,8 +5,12 @@ import { NewMealPage } from './new-meal.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: '**',
     component: NewMealPage
+  },
+  {
+    path: 'menu',
+    loadChildren: () => import('src/app/pages/web/menu/menu.module')
   }
 ];
 

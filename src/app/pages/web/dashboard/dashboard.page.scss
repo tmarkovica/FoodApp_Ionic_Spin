@@ -1,0 +1,35 @@
+ul {
+    float: left;
+    background-color: #09B44D;
+    width: 80px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    margin-right: 20px;
+}
+
+ul li {
+    border: 1px solid black;
+    height: 12.5%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+ul :hover{
+    background-color: #9ef01a;
+}
+
+section {
+    display: flex;
+}
+
+article {
+    flex: 1;
+    background-color: azure;
+    margin: 20px;
+
+    text-align: center;
+    align-items: center;    
+}

@@ -12,7 +12,10 @@ export class AppComponent {
   loggedIn : boolean = false;
 
   constructor(private menu: MenuController, private service : UserService) { 
-    //this.loggedIn = this.service.user.subscribe();
+    /*this.loggedIn = this.service.user.subscribe((boolean) => {
+      
+    });*/
+    this.service.logiran.subscribe((value) => this.loggedIn = value);
   }
 
   ionViewWillEnter() {

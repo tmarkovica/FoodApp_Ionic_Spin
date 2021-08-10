@@ -1,0 +1,21 @@
+section {
+    display: flex;
+}
+
+article {
+    flex: 1;
+    background-color: #34a0a4;
+    margin: 20px;
+
+    text-align: center;
+    align-items: center;    
+}
+
+section article ion-item ion-label {
+    background-color: grey;
+}
+
+#buttonNewMeal {
+    border: 2px #34a0a4 solid;
+    background-color: transparent;
+}

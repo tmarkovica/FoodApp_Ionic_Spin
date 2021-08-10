@@ -2,8 +2,58 @@
   <ion-toolbar>
     <ion-title>dashboard</ion-title>
   </ion-toolbar>
+
 </ion-header>
 
-<ion-content>
+<ion-content> 
+
+  <app-days-navbar></app-days-navbar>
+
+ <!-- <ul>
+    <li><ion-img src="assets\images\LOGO2-01 1.png" id="appLogo"></ion-img></li>
+    <li>MON</li>
+    <li>TUE</li>
+    <li>WED</li>
+    <li>THU</li>
+    <li>FRI</li>
+    <li>SAT</li>
+    <li>SUN</li>
+  </ul> -->
+
+  <h1>ORDERS OVERVIEW</h1>
+  <ion-list>
+    <ion-item>
+      <ion-label color="tertiary" position="floating">Search</ion-label>
+      <ion-icon name="search" color="tertiary" slot="start"></ion-icon>
+      <ion-input autocorrect="on" autofocus="on" clearInput="true" clearOnEdit="true" color="tertiary" inputmode="text" placeholder="Seach meal" required="true"></ion-input>
+      <ion-icon name="close" color="tertiary" slot="end"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+  <section>
+    <article class="column">
+      <h2>Spin</h2>
+      <p>Županijska 15</p>
+      <app-meal></app-meal>
+      <br>
+      <ion-label>Total orders</ion-label>
+    </article>
+  
+    <article class="column">
+      <h2>Company Name</h2>
+      <p>Company Adress</p>
+      <app-meal></app-meal>
+      <br>
+      <ion-label>Total orders</ion-label>
+    </article>
+    
+    <article class="column">
+      <h2>Company Name</h2>
+      <p>Company Adress</p>
+      <br>
+      <ion-label>Total orders</ion-label>
+    </article>
+  </section>
+
 
 </ion-content>

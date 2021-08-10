@@ -11,16 +11,15 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item (click)="openMenu()" [routerLink]="['pages/dashboard']">pages</ion-item>
-        <ion-item (click)="closeMenu()" [routerLink]="['/menu']">close menu</ion-item>
-        <ion-item (click)="openMenu()" [routerLink]="['/new-meal']">new meal</ion-item>
-        
-        <ion-item>Menu Item</ion-item>
+        <ion-item>My profile</ion-item>
+        <ion-item (click)="closeMenu()" [routerLink]="['/web/menu']">Day meals</ion-item>
+        <ion-item (click)="closeMenu()" [routerLink]="['/web/dashboard']">Order overview</ion-item>
         <ion-item (click)="logOut()">Log out</ion-item>
+        <ion-item (click)="closeMenu()">close menu</ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
-
+  
   <ion-router-outlet id="main"></ion-router-outlet>
 
   <ion-fab id="main" vertical="top" horizontal="end" slot="fixed" [hidden]="!loggedIn">

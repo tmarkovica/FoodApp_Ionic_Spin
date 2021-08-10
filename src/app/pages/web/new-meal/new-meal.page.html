@@ -5,5 +5,18 @@
 </ion-header>
 
 <ion-content>
-
+  <div id="sideBar">
+    <ion-img src="assets\images\LOGO2-01 1.png" id="appLogo"></ion-img>
+  </div>
+  
+  <div class="center">
+    <br><br>
+    <h1>Add new meal</h1>
+    <br><br><br><br>
+    <ion-input placeholder="Meal Name" type="text" class="separate userInput"></ion-input>
+    <ion-input placeholder="Meal Description" type="text" class="separate userInput"></ion-input>
+    
+    <ion-button (click)="cancelAddingNewMeal()" color="danger" class="separate">CANCEL</ion-button>
+    <ion-button color="primary" class="separate">SAVE</ion-button>    
+  </div>
 </ion-content>

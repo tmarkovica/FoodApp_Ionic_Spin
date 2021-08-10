@@ -1,18 +1,4 @@
-.center {
-    padding-left: 40px;
-    width: 30%;
-    margin-left: 20%;  
-}
-
-.userInput {
-    border-bottom: 2px solid black;
-}
-
-.separate {
-    margin: 4px;
-}
-
-#sideBar {
+ul {
     float: left;
     background-color: #09B44D;
     width: 80px;
@@ -22,11 +8,15 @@
     margin-right: 20px;
 }
 
-#appLogo {
+ul li {
     border: 1px solid black;
     height: 12.5%;
     text-align: center;
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+
+ul :hover{
+    background-color: #9ef01a;
 }
