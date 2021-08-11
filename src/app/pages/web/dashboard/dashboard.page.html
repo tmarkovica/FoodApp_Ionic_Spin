@@ -21,7 +21,60 @@
   </ion-list>
 
   <!-- ion-grid -->
-  <section>
+  <!-- <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h2>Spin</h2>
+        <p>Županijska 15</p>
+        <app-meal></app-meal>
+        <br>
+        <ion-label>Total orders</ion-label>
+      </ion-col>
+      <ion-col>
+        <h2>Company Name</h2>
+        <p>Company Adress</p>
+        <app-meal *ngFor="let order of orders"></app-meal>
+        <br>
+        <ion-label>Total orders</ion-label>
+      </ion-col>
+      <ion-col>
+        <h2>Company Name</h2>
+        <p>Company Adress</p>
+        <br>
+        <ion-label>Total orders</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+
+
+  <div class="days">
+    <div class="day">
+      <!-- <img class="logo" src="" alt=""> -->
+    </div>
+    <div [ngClass]="{'day': true, 'active-day':day == currentDay}" *ngFor="let day of days" color="primary" (click)="changeDay(day)">
+      <span><h2>{{daysNames[day-1]}}</h2></span>
+    </div>
+  </div>
+
+  <div class="menu">
+    <ion-grid style="margin: 0px 50px 50px;">
+      <ion-row>
+        <ion-col style="text-align: center;">
+          <h1>ORDERS OVERVIEW</h1>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-xl="3" size-lg="6" size-sm="12" *ngFor="let order of getOrderForDay()">
+          <span>
+            <app-meal [order]="order"></app-meal>
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- <section>
     <article class="column">
       <h2>Spin</h2>
       <p>Županijska 15</p>
@@ -44,7 +97,7 @@
       <br>
       <ion-label>Total orders</ion-label>
     </article>
-  </section>
+  </section> -->
 
 
 </ion-content>

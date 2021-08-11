@@ -14,3 +14,8 @@ nakon registracije dodati novu firmu
 1===2
 
 +"22"  --> 22
+
+
+Ionic page lifecycle
+ionViewDidEnter
+resolver

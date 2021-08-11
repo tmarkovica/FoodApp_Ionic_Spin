@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { LoginPageModule } from './pages/login/login.module';
+import { RestaurauntResolverService } from './resolvers/rastaurauntResolver/restauraunt-resolver.service';
 
 const routes: Routes = [
   {
@@ -24,6 +25,9 @@ const routes: Routes = [
         loadChildren: () => import('./pages/web/menu/menu.module').then( m => m.MenuPageModule)
       }
     ],
+    resolve: {
+      restauraunt: RestaurauntResolverService
+    },
     canActivate: [AuthGuard]
   },
   {

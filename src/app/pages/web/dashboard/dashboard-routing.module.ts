@@ -14,6 +14,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule, DaysNavbarComponent],
+  exports: [RouterModule],
 })
 export class DashboardPageRoutingModule {}
