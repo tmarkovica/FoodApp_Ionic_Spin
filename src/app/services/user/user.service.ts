@@ -4,7 +4,6 @@ import { User } from 'src/app/interfaces/user';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
-
 interface RegisteredUser {
   userid;
 }
@@ -23,13 +22,13 @@ export class UserService {
     return this._user.getValue().companyId;
   }
 
-  constructor(private http : HttpClient, private router : Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
-  logiran : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  logiran: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  url:string="https://jupitermobiletest.jupiter-software.com:30081/jupitermobilex/gen/api/food";
+  url: string = "https://jupitermobiletest.jupiter-software.com:30081/jupitermobilex/gen/api/food";
 
-  user: User = null;
+  user : User = null;
 
   _user : BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
@@ -38,18 +37,18 @@ export class UserService {
 
     this.http.post(this.url, {
       "db": "Food",
-        "queries": [
-            {
-                "query": "spUsersAzur",
-                "params": {
-                    "action": "login",
-                    "email": username,
-                    "password": password
-                }
-            }
-        ]
+      "queries": [
+        {
+          "query": "spUsersAzur",
+          "params": {
+            "action": "login",
+            "email": username,
+            "password": password
+          }
+        }
+      ]
     }).subscribe((res: Array<User>) => {
-      if (res.length==1) {
+      if (res.length == 1) {
         this.logiran.next(true);
         console.log("User logged in.");
         console.log(res);
@@ -57,7 +56,7 @@ export class UserService {
 
         this._user.next(res[0]);
 
-        this.router.navigate(['/web/dashboard'], {replaceUrl : true});
+        this.router.navigate(['/web/menu'], { replaceUrl: true }); //dashboard
       }
       else {
         console.log("This user doesn't exit.");
@@ -65,27 +64,27 @@ export class UserService {
     });
   }
 
-  registerUser(username: string, email: string, password: string, owner : boolean, companyName : string, status : number) {
+  registerUser(username: string, email: string, password: string, owner: boolean, companyName: string, status: number) {
     console.log(`registering... name: ${username}; email: ${email}; password: ${password}`);
 
     this.http.post(this.url, {
-        "db": "Food",
-        "queries": [
-            {
-                "query": "spUsersAzur",
-                "params": {
-                    "action": "insert",
-                    "name": username,
-                    "email": email,
-                    "password": password
-                }
-            }
-        ]
+      "db": "Food",
+      "queries": [
+        {
+          "query": "spUsersAzur",
+          "params": {
+            "action": "insert",
+            "name": "Vedran",
+            "email": "vedran.prpic1@gmail.com",
+            "password": "lozinka"
+          }
+        }
+      ]
     }).subscribe((res: Array<RegisteredUser>) => {
-      if (res.length==1)  {
+      if (res.length == 1) {
         console.log(`id of registered user: ${res[0].userid}`);
         console.log(res);
-        
+
         if (owner) {
           this.registerCompany(companyName, status, res[0].userid);
         }
@@ -100,34 +99,27 @@ export class UserService {
     this.http.post(this.url, {
       "db": "Food",
       "queries": [
-          {
-              "query": "spCompanyAzur",
-              "params": {
-                  "action": "insert",
-                  "name": name,
-                  "status": status,
-                  "userid": userid
-              }
+        {
+          "query": "spCompanyAzur",
+          "params": {
+            "action": "insert",
+            "name": name,
+            "status": status,
+            "userid": userid
           }
+        }
       ]
     }).subscribe((res: Array<Company>) => {
       console.log("Company registered.");
-      /*if (res.length==1)  {
-        console.log("Company registered.");
-        console.log(res);
-      }
-      else {
-        console.log("Problem registering company.");
-      }*/
     });
   }
 
   logOut() {
     this.user = null;
     this.logiran.next(false);
-    
+
     this._user.next(null);
-    this.router.navigate(['/login'], {replaceUrl : true});
+    this.router.navigate(['/login'], { replaceUrl: true });
   }
 
   isCompany() {

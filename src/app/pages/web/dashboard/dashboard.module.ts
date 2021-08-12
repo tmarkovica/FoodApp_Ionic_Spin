@@ -17,6 +17,6 @@ import { DaysNavbarComponent } from 'src/app/components/days-navbar/days-navbar.
     IonicModule,
     DashboardPageRoutingModule
   ],
-  declarations: [DashboardPage, MealComponent, DaysNavbarComponent]
+  declarations: [DashboardPage, MealComponent, DaysNavbarComponent],
 })
 export class DashboardPageModule {}

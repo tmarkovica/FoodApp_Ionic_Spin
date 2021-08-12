@@ -1,6 +1,7 @@
 import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
 
 @Component({
   selector: 'app-new-meal',
@@ -9,12 +10,31 @@ import { Router } from '@angular/router';
 })
 export class NewMealPage implements OnInit {
 
-  constructor(private router : Router) { }
+  mealName : string = "";
+  mealDescription : string = "";
+  soup : boolean = false;
+  salad : boolean = false;
+  bread : boolean = false;
+
+  constructor(private router : Router, private restaurauntService : RestaurantService) { }
 
   ngOnInit() {
   }
 
   cancelAddingNewMeal() {
     this.router.navigate(['/web/menu'], {replaceUrl : true});
+  }
+
+  addNewMeal(){
+    
+    console.log(`${this.mealName}, ${this.mealDescription}, ${this.soup}, ${this.salad}, ${this.bread}`);
+    
+    this.restaurauntService.addNewMeal(this.mealName, this.mealDescription, this.soup, this.salad, this.bread);
+
+    this.mealName = "";
+    this.mealDescription = "";
+    this.soup = false;
+    this.salad = false;
+    this.bread = false;
   }
 }

@@ -12,16 +12,16 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     //console.log(this.service.logiran);
-    /*if (this.username === "tmark@gmail.com") {
+    if (this.username === "vedran.prpic1@gmail.com") {
       this.service.login(this.username, this.password);
-    }*/
-
+    }
   }
 
   username: string = "vedran.prpic1@gmail.com"; //"tmark@gmail.com";
   password: string = "lozinka"; //"tmark@gmail.com";
 
   showRegistration:boolean = false;
+  
 
   logInClick() {
     this.service.login(this.username, this.password);

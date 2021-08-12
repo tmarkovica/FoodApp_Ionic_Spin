@@ -1,11 +1,8 @@
-<!-- ion-list -->
-<ul>
-  <li><ion-img src="assets\images\logobijeli-01 1.png" id="appLogo"></ion-img></li>
-  <li>MON</li>
-  <li>TUE</li>
-  <li>WED</li>
-  <li>THU</li>
-  <li>FRI</li>
-  <li>SAT</li>
-  <li>SUN</li>
-</ul>
+<div class="days">
+  <div class="day">
+    <img class="logo" src="assets/images/logobijeli-01 1.png" alt="">
+  </div>
+  <div [ngClass]="{'day': true, 'active-day': day == currentDay}" *ngFor="let day of days" color="primary" (click)="changeDay(day)">
+    <span><h2>{{daysNames[day-1]}}</h2></span>
+  </div>
+</div>

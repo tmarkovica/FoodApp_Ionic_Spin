@@ -1,44 +1,41 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>menu</ion-title>
-  </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content >
 
-  <app-days-navbar></app-days-navbar>
+  <!-- <app-days-navbar></app-days-navbar> -->
+  <div class="days">
+    <div class="day">
+      <img class="logo" src="assets/images/logobijeli-01 1.png" alt="">
+    </div>
+    <div [ngClass]="{'day': true, 'active-day': day == currentDay}" *ngFor="let day of days" color="primary"
+      (click)="changeDay(day)">
+      <span>
+        <h2>{{daysNames[day-1]}}</h2>
+      </span>
+    </div>
+  </div>
 
-  <h1>DAY MEALS</h1>
-  <ion-list>
-    <ion-item>
-      <ion-label color="tertiary" position="floating">Search</ion-label>
-      <ion-icon name="search" color="tertiary" slot="start"></ion-icon>
-      <ion-input autocorrect="on" autofocus="on" clearInput="true" clearOnEdit="true" color="tertiary" inputmode="text" placeholder="Seach meal" required="true"></ion-input>
-      <ion-icon name="close" color="tertiary" slot="end"></ion-icon>
-    </ion-item>
-  </ion-list>
-
-  <!-- <ion-grid></ion-grid> -->
-  <ion-grid>
-    <ion-row>
-      <ion-col></ion-col>
-      <ion-col></ion-col>
-    </ion-row>
-  </ion-grid>
+  <h1 id="heading">DAY MEALS</h1>
+  <ion-searchbar showCancelButton="focus" cancelButtonText="Custom Cancel" id="searchbar" position="floating">
+  </ion-searchbar>
 
   <section>
-    <article class="column">
+    <article>
       <h2>Non active meals</h2>
       <p>Click on the meal card to add it to your day menu</p>
-      <app-meal></app-meal>
-      <br>
+      <span id="cardMeal">
+        <app-meal [mealsForWeek]="order" (click)="mealCardClickedElementAt(i)"
+          *ngFor="let order of getMealsForWeek(); index as i"></app-meal>
+      </span>
       <ion-button (click)="addNewMeal()" id="buttonNewMeal">ADD NEW MEAL</ion-button>
     </article>
-  
-    <article class="column">
+    <article>
       <h2>Current meals</h2>
       <p>currently available meals on your daily menu</p>
-      <app-meal></app-meal>
+      <span>
+        <app-meal *ngFor="let order of getMenuForWeek()" [menuForWeek]="order"></app-meal>
+      </span>
     </article>
   </section>
 

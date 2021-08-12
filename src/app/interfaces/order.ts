@@ -1,7 +1,14 @@
 export interface Order {
-    dan: string,
-    restoranid: number,
-    restoran: string,
-    userurestoranuid: number,
-    jelo: string;
+    Salad: boolean
+    bread: boolean
+    dan: string
+    firma: string
+    firmaid: number
+    jelo: string
+    narucitelj: string
+    naruciteljid: number
+    restoran: string
+    restoranid: number
+    soup: boolean
+    userurestoranuid: number;
 }

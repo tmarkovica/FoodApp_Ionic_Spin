@@ -15,8 +15,8 @@ import { MealComponent } from 'src/app/components/meal/meal.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    MenuPageRoutingModule
+    MenuPageRoutingModule,
   ],
-  declarations: [MenuPage, MealComponent, DaysNavbarComponent]
+  declarations: [MenuPage, MealComponent, DaysNavbarComponent],
 })
 export class MenuPageModule {}

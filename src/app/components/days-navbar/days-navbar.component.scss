@@ -1,22 +1,23 @@
-ul {
+.days {
     float: left;
-    background-color: #09B44D;
-    width: 80px;
+    width: 7%;
     height: 100%;
-    padding: 0;
-    margin: 0;
-    margin-right: 20px;
+    background-color: #1CBA5B;
+    position: fixed;
 }
-
-ul li {
-    border: 1px solid black;
-    height: 12.5%;
-    text-align: center;
+.day {
+    width: 100%;
+    height: (100%/6);
+    padding: 20px;
+    float: left;
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    align-items: center;
+    color: white; 
+    font-weight: bolder;
+    cursor: pointer;
 }
-
-ul :hover{
-    background-color: #9ef01a;
+.active-day {
+    color:  #1CBA5B;
+    background-color: white;
 }

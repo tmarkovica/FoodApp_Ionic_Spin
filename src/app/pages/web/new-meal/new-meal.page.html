@@ -1,22 +1,32 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>new-meal</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <div id="sideBar">
-    <ion-img src="assets\images\LOGO2-01 1.png" id="appLogo"></ion-img>
+  <div class="days">
+    <div class="day">
+      <img class="logo" src="assets/images/logobijeli-01 1.png" alt="">
+    </div>
   </div>
-  
+
   <div class="center">
     <br><br>
     <h1>Add new meal</h1>
     <br><br><br><br>
-    <ion-input placeholder="Meal Name" type="text" class="separate userInput"></ion-input>
-    <ion-input placeholder="Meal Description" type="text" class="separate userInput"></ion-input>
-    
+    <ion-input placeholder="Meal Name" type="text" class="separate userInput" [(ngModel)]="mealName"></ion-input>
+    <ion-input placeholder="Meal Description" type="text" class="separate userInput" [(ngModel)]="mealDescription">
+    </ion-input>
+
+    <ion-item>
+      <ion-label>Soup: </ion-label>
+      <ion-checkbox color="primary" checked="false" [(ngModel)]="soup"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Salad: </ion-label>
+      <ion-checkbox color="primary" checked="false" [(ngModel)]="salad"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Bread: </ion-label>
+      <ion-checkbox color="primary" checked="false" [(ngModel)]="bread"></ion-checkbox>
+    </ion-item>
+
     <ion-button (click)="cancelAddingNewMeal()" color="danger" class="separate">CANCEL</ion-button>
-    <ion-button color="primary" class="separate">SAVE</ion-button>    
+    <ion-button color="primary" class="separate" (click)="addNewMeal()">SAVE</ion-button>
   </div>
 </ion-content>

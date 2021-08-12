@@ -1,21 +1,56 @@
+#heading {
+    float: left; 
+    margin-left: 40%;
+}
+
+#searchbar {
+    float: right; 
+    width: 30%;
+}
+
+.gridHeader {
+    text-align: center;
+}
+
 section {
     display: flex;
+    clear: both;
+    margin-left: 7%;
 }
 
 article {
     flex: 1;
-    background-color: #34a0a4;
     margin: 20px;
-
     text-align: center;
     align-items: center;    
 }
 
-section article ion-item ion-label {
-    background-color: grey;
+// days-navbar
+.days {
+    float: left;
+    width: 7%;
+    height: 100%;
+    background-color: #1CBA5B;
+    position: fixed;
+}
+.day {
+    width: 100%;
+    height: (100%/6);
+    padding: 20px;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; 
+    font-weight: bolder;
+    cursor: pointer;
+}
+.active-day {
+    color:  #1CBA5B;
+    background-color: white;
 }
 
-#buttonNewMeal {
-    border: 2px #34a0a4 solid;
-    background-color: transparent;
+#cardMeal :hover {
+    --ion-background-color: #d8dfe6 !important;
+    cursor: pointer;
 }
