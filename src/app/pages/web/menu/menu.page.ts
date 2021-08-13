@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'src/app/interfaces/menu-item';
-import { Order } from 'src/app/interfaces/order';
-import { WeekMeal } from 'src/app/interfaces/week-meal';
+import { Dish } from 'src/app/interfaces/dish';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
 
 @Component({
@@ -12,82 +11,73 @@ import { RestaurantService } from 'src/app/services/restaurant/restaurant.servic
 })
 export class MenuPage implements OnInit {
 
-  mealsForWeek : Array<WeekMeal>;
+  allDishesOfRestaurant: Array<Dish>;
 
-  orders : Array<Order>;
+  menuForWeekAndCompany: Array<MenuItem>;
+  menuForWeekAndCompany_currentDayMenu: Array<MenuItem>;
 
-  menuForWeek : Array<MenuItem>;
-
-  days = [1,2,3,4,5];
+  days = [1, 2, 3, 4, 5];
   daysNames = ["MON", "TUE", "WED", "THU", "FRI"];
   daysNamesCro = ["Ponedjeljak", "Utorak", "Srijeda", "Četvrtak", "Petak"];
 
   currentDay = 1;
 
-  constructor(private router : Router, private restaurauntService: RestaurantService) { }
+  constructor(private router: Router, private restaurauntService: RestaurantService) { }
+
+  private filterWeekMenuForCurrentday() {
+    this.menuForWeekAndCompany_currentDayMenu = this.menuForWeekAndCompany.filter(o => o.day == this.currentDay);
+  }
+
+  private subscribeToGetAllDishesOfRestaurant() {
+    this.restaurauntService._allDishesOfRestaurant.subscribe(val => {
+      this.allDishesOfRestaurant = val;
+    });
+  }
+
+  private subscribeToGetMenuForWeekAndCompany() {
+    this.restaurauntService._menuForWeek.subscribe(val => {
+      this.menuForWeekAndCompany = val;
+      this.filterWeekMenuForCurrentday();
+    });
+  }
 
   ngOnInit() {
-    this.restaurauntService._mealsForWeek.subscribe(val => {
-      this.mealsForWeek = val;      
-    });
-
-    this.restaurauntService._orders.subscribe(val => {
-      this.orders = val;      
-    });
-
-    this.restaurauntService._menuForWeek.subscribe(val => {
-      this.menuForWeek = val;      
-    });
-
-    this.restaurauntService.getDishForCompany();
-    this.restaurauntService.getMenuForWeekAndCompany();
-
-    this.restaurauntService.getAllMenus();
-    this.restaurauntService.getDishMenuForCompany();
-    this.restaurauntService.getMenuForDay(5);
-  }  
-
-  addNewMeal(){
-    this.router.navigate(['/web/new-meal'], {replaceUrl : true});
+    this.subscribeToGetAllDishesOfRestaurant();
+    this.subscribeToGetMenuForWeekAndCompany();
   }
 
-  getMealsForWeek() {
-    if (this.mealsForWeek != null) {
-      return this.mealsForWeek;
-    }
-    return [];
+  addNewMeal() {
+    this.router.navigate(['/web/new-meal'], { replaceUrl: true });
   }
 
-  getMenuForWeek() {
-    if (this.menuForWeek != null) {
-      return this.menuForWeek.filter(o => o.day == this.currentDay);
-    }
-    return [];
-  }
-
-  changeDay(day: number){
+  navbarClickChangeDay(day: number) {
     this.currentDay = day;
-    console.log(this.currentDay);
+    this.filterWeekMenuForCurrentday();
   }
 
-  
-
-  getMenuForWeekAndCompany() {
-    if (this.orders != null) {
-      return this.orders.filter(o => o.dan == this.daysNamesCro[this.currentDay - 1]);
-    }
-    return [];
+  mealCardClicked_AddDishToMenu(i: number) {
+    console.log("meal card clicked...");
+    this.restaurauntService.insertDishInMenu(this.allDishesOfRestaurant[i].DishId, this.currentDay, this.allDishesOfRestaurant[i].Name);
   }
 
-  mealCardClickedElementAt(i : any) {
-    let node = document.getElementById("cardMeal");
-    let parentNode = node?.parentElement;
+  private getDishToDeleteFromAllDishesOfRestaurant(i: number) {
+    return this.allDishesOfRestaurant.find(o => o.Name == this.menuForWeekAndCompany_currentDayMenu[i].name) as Dish;
+  }
 
-    //parentNode?.removeChild(parentNode.childNodes[i]);
+  private deleteDishFromWeekMenu_api(dishToDelete: Dish, i: number) {
+    this.restaurauntService.deleteDishFromMenu(dishToDelete.DishId, this.menuForWeekAndCompany_currentDayMenu[i].day);
+  }
 
-    this.orders[i]
+  private deleteDishFromWeekMenu_local(i: number) {
+    this.menuForWeekAndCompany.splice(this.menuForWeekAndCompany.indexOf(this.menuForWeekAndCompany.find(o => o == this.menuForWeekAndCompany_currentDayMenu[i])), 1);
+    this.filterWeekMenuForCurrentday();
+  }
 
-    console.log("meal card clicked******");
-    this.restaurauntService.insertDishInMenu(this.mealsForWeek[i].DishId, this.currentDay);
+  mealCardClicked_RemoveDishFromMenu(i: number) {
+    console.log("deleting element...");
+    const dishToDelete: Dish = this.getDishToDeleteFromAllDishesOfRestaurant(i);
+    console.log(dishToDelete);
+    this.deleteDishFromWeekMenu_api(dishToDelete, i);
+    this.deleteDishFromWeekMenu_local(i);
   }
 }

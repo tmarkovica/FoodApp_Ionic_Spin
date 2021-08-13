@@ -34,7 +34,7 @@ export class DashboardPage implements OnInit {
     return [];
   }
 
-  changeDay(day: number){
+  navbarClickChangeDay(day: number){
     this.currentDay = day;
   }
 

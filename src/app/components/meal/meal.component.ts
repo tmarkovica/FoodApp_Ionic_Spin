@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'src/app/interfaces/menu-item';
 import { Order } from 'src/app/interfaces/order';
-import { WeekMeal } from 'src/app/interfaces/week-meal';
+import { Dish } from 'src/app/interfaces/dish';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { RestaurantService } from 'src/app/services/restaurant/restaurant.servic
 export class MealComponent implements OnInit {
 
   @Input() order : Order;
-  @Input() mealsForWeek : WeekMeal;
+  @Input() mealsForWeek : Dish;
   @Input() menuForWeek : MenuItem;
 
   mealName : string = "";
@@ -25,10 +25,8 @@ export class MealComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log(this.order.jelo);
     if (this.order != null){
       this.mealName = this.order.jelo;
-      //this.mealDescription = order.des;
       this.Soup = this.order.soup;
       this.Salad = this.order.Salad;
       this.Bread = this.order.bread;
@@ -44,6 +42,4 @@ export class MealComponent implements OnInit {
       this.mealName = this.menuForWeek.name;
     }
   }
-
-
 }

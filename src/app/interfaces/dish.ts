@@ -1,4 +1,4 @@
-export interface WeekMeal {
+export interface Dish {
     Bread: boolean
     Description: string
     DishId: number

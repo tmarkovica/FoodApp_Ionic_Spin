@@ -1,20 +1,6 @@
-<ion-header>
-</ion-header>
+<ion-content>
 
-<ion-content >
-
-  <!-- <app-days-navbar></app-days-navbar> -->
-  <div class="days">
-    <div class="day">
-      <img class="logo" src="assets/images/logobijeli-01 1.png" alt="">
-    </div>
-    <div [ngClass]="{'day': true, 'active-day': day == currentDay}" *ngFor="let day of days" color="primary"
-      (click)="changeDay(day)">
-      <span>
-        <h2>{{daysNames[day-1]}}</h2>
-      </span>
-    </div>
-  </div>
+  <app-days-navbar (changed)="navbarClickChangeDay($event)"></app-days-navbar>
 
   <h1 id="heading">DAY MEALS</h1>
   <ion-searchbar showCancelButton="focus" cancelButtonText="Custom Cancel" id="searchbar" position="floating">
@@ -24,17 +10,18 @@
     <article>
       <h2>Non active meals</h2>
       <p>Click on the meal card to add it to your day menu</p>
-      <span id="cardMeal">
-        <app-meal [mealsForWeek]="order" (click)="mealCardClickedElementAt(i)"
-          *ngFor="let order of getMealsForWeek(); index as i"></app-meal>
+      <span id="cardDish_allDishesOfRestaurant">
+        <app-meal *ngFor="let order of allDishesOfRestaurant; index as i" [mealsForWeek]="order"
+          (click)="mealCardClicked_AddDishToMenu(i)"></app-meal>
       </span>
       <ion-button (click)="addNewMeal()" id="buttonNewMeal">ADD NEW MEAL</ion-button>
     </article>
     <article>
       <h2>Current meals</h2>
       <p>currently available meals on your daily menu</p>
-      <span>
-        <app-meal *ngFor="let order of getMenuForWeek()" [menuForWeek]="order"></app-meal>
+      <span id="cardDish_onTheMenu">
+        <app-meal *ngFor="let order of menuForWeekAndCompany_currentDayMenu; index as i" [menuForWeek]="order"
+          (click)="mealCardClicked_RemoveDishFromMenu(i)"></app-meal>
       </span>
     </article>
   </section>
