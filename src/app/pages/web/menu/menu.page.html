@@ -12,7 +12,7 @@
       <p>Click on the meal card to add it to your day menu</p>
       <span id="cardDish_allDishesOfRestaurant">
         <app-meal *ngFor="let order of allDishesOfRestaurant; index as i" [mealsForWeek]="order"
-          (click)="mealCardClicked_AddDishToMenu(i)"></app-meal>
+          (click)="mealCardClicked_AddDishToMenu(i)"></app-meal> <!--   -->
       </span>
       <ion-button (click)="addNewMeal()" id="buttonNewMeal">ADD NEW MEAL</ion-button>
     </article>

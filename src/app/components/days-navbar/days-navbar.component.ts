@@ -29,9 +29,6 @@ export class DaysNavbarComponent implements OnInit {
 
   changeDay(day: number){
     this.currentDay = day;
-    
-
     this.changed.emit(this.currentDay);
-    //this.logCurrentDay();
   }
 }

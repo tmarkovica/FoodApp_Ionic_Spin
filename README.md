@@ -19,3 +19,13 @@ nakon registracije dodati novu firmu
 Ionic page lifecycle
 ionViewDidEnter
 resolver
+
+//13.08.
+npm install @capacitor/storage
+ionic cap sync
+$ npm install @capacitor/storage
+ng add @angular/pwa
+npm install -g firebase-tools
+
+firebase
+firebase login

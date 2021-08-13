@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/interfaces/user';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { StorageService } from '../storage/storage.service';
 
 interface RegisteredUser {
   userid;
@@ -22,15 +23,15 @@ export class UserService {
     return this._user.getValue().companyId;
   }
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private storageService: StorageService) { }
 
   logiran: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   url: string = "https://jupitermobiletest.jupiter-software.com:30081/jupitermobilex/gen/api/food";
 
-  user : User = null;
+  user: User = null;
 
-  _user : BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  _user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   login(username: string, password: string) {
     console.log(`loggin in... username: ${username}; password: ${password}`);
@@ -53,8 +54,9 @@ export class UserService {
         console.log("User logged in.");
         console.log(res);
         this.user = res[0];
-
         this._user.next(res[0]);
+
+        this.storageService.setData("storedUser", res[0]);
 
         this.router.navigate(['/web/menu'], { replaceUrl: true }); //dashboard
       }
@@ -117,8 +119,9 @@ export class UserService {
   logOut() {
     this.user = null;
     this.logiran.next(false);
-
     this._user.next(null);
+
+    this.storageService.removeData("storedUser")
     this.router.navigate(['/login'], { replaceUrl: true });
   }
 

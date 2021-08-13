@@ -32,5 +32,7 @@ export class RegistrationComponent implements OnInit {
     this.username = "";
     this.email = "";
     this.password = "";
+    this.companyName = "";
+    this.status = 0; 
   }
 }

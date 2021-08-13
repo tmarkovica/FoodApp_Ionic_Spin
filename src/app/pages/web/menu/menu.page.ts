@@ -55,9 +55,17 @@ export class MenuPage implements OnInit {
     this.filterWeekMenuForCurrentday();
   }
 
+  private findDishAddedToMenu(i : number) {
+    return this.menuForWeekAndCompany_currentDayMenu.find(o => o.name == this.allDishesOfRestaurant[i].Name);
+  }
+
   mealCardClicked_AddDishToMenu(i: number) {
-    console.log("meal card clicked...");
-    this.restaurauntService.insertDishInMenu(this.allDishesOfRestaurant[i].DishId, this.currentDay, this.allDishesOfRestaurant[i].Name);
+    if (this.findDishAddedToMenu(i) == null) {
+      this.restaurauntService.insertDishInMenu(this.allDishesOfRestaurant[i].DishId, this.currentDay, this.allDishesOfRestaurant[i].Name);
+    }
+    else {
+      console.log("already contains element!!!!");
+    }
   }
 
   private getDishToDeleteFromAllDishesOfRestaurant(i: number) {
@@ -79,5 +87,14 @@ export class MenuPage implements OnInit {
     console.log(dishToDelete);
     this.deleteDishFromWeekMenu_api(dishToDelete, i);
     this.deleteDishFromWeekMenu_local(i);
+  }
+
+  isAlreadyInMenu(i : number) : boolean {
+    if (this.findDishAddedToMenu(i) == null) {
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 }
