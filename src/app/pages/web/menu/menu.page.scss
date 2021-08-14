@@ -34,3 +34,19 @@ article {
     --ion-background-color: #f8aaaa !important;
     cursor: pointer;
 }
+
+.mealsBlock {
+    margin-top: 10px;
+    height: 600px;
+    --offset-top: 10px;
+    --offset-bottom: 10px;
+    --background: rgb(211, 207, 205);
+    border-top: 3px green solid;
+    border-bottom: 3px green solid;
+}
+
+#buttonNewMeal {
+    bottom: 30px;
+    position: fixed;
+    left: 10em;
+}

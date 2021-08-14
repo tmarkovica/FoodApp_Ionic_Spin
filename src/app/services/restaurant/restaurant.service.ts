@@ -5,7 +5,6 @@ import { Order } from 'src/app/interfaces/order';
 import { Dish } from 'src/app/interfaces/dish';
 import { UserService } from '../user/user.service';
 import { MenuItem } from 'src/app/interfaces/menu-item';
-import { MenuI } from '@ionic/core';
 
 @Injectable({
   providedIn: 'root'
@@ -146,5 +145,9 @@ export class RestaurantService {
     }).toPromise().then((val: string) => {
       console.log("Dish deleted from menu");
     });
+  }
+
+  refreshData() {
+    this._allDishesOfRestaurant.next(this._allDishesOfRestaurant.getValue());
   }
 }
