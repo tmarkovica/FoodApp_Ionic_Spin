@@ -100,10 +100,10 @@ export class MenuPage implements OnInit {
     let tempArr: Array<Dish>;
     tempArr = this.allDishesOfRestaurant.filter(o => {
       //return o.Name.toLowerCase().indexOf(this.searchInput.toLowerCase()) > -1; // jela koja sadrze searchInput string
-      return o.Name.startsWith(this.searchInput); // jela koja pocinju sa searchInput stringom
+      return o.Name.toLowerCase().startsWith(this.searchInput.toLowerCase()); // jela koja pocinju sa searchInput stringom
     });
     //tempArr.sort((a, b) => a.Name.startsWith(this.searchInput) ? -1 : 1); // jela sortirati da počnu po abecedi
-    tempArr.sort((a, b) => a.Name !== b.Name ? a.Name < b.Name ? -1 : 1 : 0); // sortira jela po abecedi
+    tempArr.sort((a, b) => a.Name.toLowerCase() !== b.Name.toLowerCase() ? a.Name.toLowerCase() < b.Name.toLowerCase() ? -1 : 1 : 0); // sortira jela po abecedi
     console.log(tempArr);
     return tempArr;
   }
@@ -111,9 +111,9 @@ export class MenuPage implements OnInit {
   private getFilteredArray_menuForWeekAndCompany_currentDayMenu() {
     let tempArr: Array<MenuItem>;
     tempArr = this.menuForWeekAndCompany_currentDayMenu.filter(o => { // jela koja sadrze searchInput string
-      return o.name.startsWith(this.searchInput);
+      return o.name.toLowerCase().startsWith(this.searchInput.toLowerCase());
     });
-    tempArr.sort((a, b) => a.name !== b.name ? a.name < b.name ? -1 : 1 : 0); // jela sortirati da počnu po abecedi
+    tempArr.sort((a, b) => a.name.toLowerCase() !== b.name.toLowerCase() ? a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 : 0); // jela sortirati da počnu po abecedi
     return tempArr;
   }
 

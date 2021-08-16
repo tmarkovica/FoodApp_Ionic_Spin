@@ -10,31 +10,53 @@ import { RestaurantService } from 'src/app/services/restaurant/restaurant.servic
 })
 export class DashboardPage implements OnInit {
 
-  orders : Array<Order>;
+  orders: Array<Order>;
 
-  days = [1,2,3,4,5];
-  daysNames = ["MON", "TUE", "WED", "THU", "FRI"];
+  ordersSortedByDay: Array<Order>;
+
+  ordersFromCompany: Array<Array<Order>> = new Array<Array<Order>>();
+
+  /* days = [1, 2, 3, 4, 5];
+  daysNames = ["MON", "TUE", "WED", "THU", "FRI"]; */
   daysNamesCro = ["Ponedjeljak", "Utorak", "Srijeda", "Četvrtak", "Petak"];
 
   currentDay = 1;
 
-  constructor(private restaurauntService: RestaurantService) { 
+  constructor(private restaurauntService: RestaurantService) {
   }
 
   ngOnInit() {
     this.restaurauntService._orders.subscribe(val => {
-      this.orders = val;    
+      this.orders = val;
+      /* 
+      console.log("................");
+      console.log(this.orders);
+
+      let groupsIndex = 0;
+
+      let tempId = this.orders[0].userurestoranuid;
+
+      for (let j=0; this.orders.length-1; j++) {
+        for (let i=0; this.orders[i+j].userurestoranuid == tempId; i++) {
+        
+          this.ordersFromCompany[groupsIndex] = [... this.ordersFromCompany, this.orders[i+j]];
+          
+          tempId = this.orders[i+j].userurestoranuid;
+          j = j+i;
+        }
+        groupsIndex++;
+      }
+        
+      console.log("................");
+      console.log(this.ordersFromCompany); */
+
+      /*this.ordersFromCompany = val.filter(o => o.dan == this.daysNamesCro[this.currentDay - 1]);
+
+      this.ordersSortedByDay = this.orders.filter(o => o.dan == this.daysNamesCro[this.currentDay - 1]);*/
     });
   }
 
-  getOrdersForDay() {
-    if (this.orders != null) {
-      return this.orders.filter(o => o.dan == this.daysNamesCro[this.currentDay - 1]);
-    }
-    return [];
-  }
-
-  navbarClickChangeDay(day: number){
+  navbarClickChangeDay(day: number) {
     this.currentDay = day;
   }
 
