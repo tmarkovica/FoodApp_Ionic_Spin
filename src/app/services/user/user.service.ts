@@ -33,6 +33,8 @@ export class UserService {
 
   _user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
+  isMobile : boolean;
+
   login(username: string, password: string) {
     console.log(`loggin in... username: ${username}; password: ${password}`);
 
@@ -58,7 +60,8 @@ export class UserService {
 
         this.storageService.setData("storedUser", res[0]);
 
-        this.router.navigate(['/web/menu'], { replaceUrl: true }); //dashboard
+        //this.router.navigate(['/web/menu'], { replaceUrl: true });
+        this.router.navigate(['/' + (!this.isMobile ? 'web' : 'mobile/tabs') + '/dashboard'], {replaceUrl: true});
       }
       else {
         console.log("This user doesn't exit.");

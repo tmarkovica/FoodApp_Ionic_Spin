@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { MenuController, Platform } from '@ionic/angular';
+//import { platform } from 'os';
 import { StorageService } from './services/storage/storage.service';
 import { UserService } from './services/user/user.service';
 
@@ -13,7 +14,11 @@ export class AppComponent {
 
   loggedIn: boolean = false;
 
-  constructor(private menu: MenuController, private userService: UserService, storageService: StorageService, router: Router) {
+  isMobile: boolean;
+
+  constructor(private menu: MenuController, private userService: UserService, storageService: StorageService, router: Router, private platform: Platform) {
+    this.initializeApp();
+    
     this.userService._user.subscribe(val => {
       this.loggedIn = val != null;
     });
@@ -23,10 +28,17 @@ export class AppComponent {
     storageService.getData("storedUser").then(val => {
       if (val) {
         userService._user.next(val);
-        router.navigate(['/web/menu'], { replaceUrl: true });
+        router.navigate(['/' + (!this.isMobile ? 'web' : 'mobile/tabs') + '/dashboard'], {replaceUrl: true});
       }
     });
 
+    
+
+  }
+
+  initializeApp(){
+    this.userService.isMobile = this.platform.is('mobileweb') || this.platform.is('mobile');
+    this.isMobile = this.userService.isMobile;
   }
 
   ionViewWillEnter() {

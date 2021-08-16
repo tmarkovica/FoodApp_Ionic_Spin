@@ -5,6 +5,9 @@ import { Order } from 'src/app/interfaces/order';
 import { Dish } from 'src/app/interfaces/dish';
 import { UserService } from '../user/user.service';
 import { MenuItem } from 'src/app/interfaces/menu-item';
+import { map } from 'rxjs/operators';
+import { Restaurant } from 'src/app/interfaces/restaurant';
+import { MenuDish } from 'src/app/interfaces/menu-dish';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +16,51 @@ export class RestaurantService {
 
   url: string = "https://jupitermobiletest.jupiter-software.com:30081/jupitermobilex/gen/api/food";
 
-  _orders: BehaviorSubject<Array<Order>> = new BehaviorSubject<Array<Order>>(null);
+  _orders: BehaviorSubject<Array<Order>> = new BehaviorSubject<Array<Order>>([]);
 
-  _allDishesOfRestaurant: BehaviorSubject<Array<Dish>> = new BehaviorSubject<Array<Dish>>(null);
+  _allDishesOfRestaurant: BehaviorSubject<Array<Dish>> = new BehaviorSubject<Array<Dish>>([]);
 
-  _menuForWeek: BehaviorSubject<Array<MenuItem>> = new BehaviorSubject<Array<MenuItem>>(null);
+  _menuForWeek: BehaviorSubject<Array<MenuItem>> = new BehaviorSubject<Array<MenuItem>>([]);
+
+  _allRestaurants: BehaviorSubject<Array<Restaurant>> = new BehaviorSubject<Array<Restaurant>>([]);
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
-  initRestaurauntForCustomerUser(): boolean {
-    return true;
+  initRestaurauntForCustomerUser() {
+    return this.http.post(this.url, {
+      "db": "Food",
+      "queries": [
+        // allRestaurants
+        {
+          "query": "spCompany",
+          "params": {
+            "@action": "all"
+          },
+          tablename: 'allRestaurants'
+        },
+
+        // allMenus
+        {
+          "query": "spMenu",
+          "params": {
+            "action": "all"
+          },
+          tablename: 'allMenus'
+        }
+      ]
+    }).pipe(map((val: {
+      allRestaurants: Restaurant[],
+      allMenus: MenuDish[]
+    }) => {
+      if (val.allRestaurants.length > 0) {
+        const x = val.allRestaurants.map(r => ({
+          companyId: r.companyId,
+          name: r.name,
+          menus: [1, 2, 3, 4, 5].map(d => val.allMenus.filter(m => m.companyID === r.companyId && m.day === d)),
+        }))
+        this._allRestaurants.next(x);
+      }
+    }));
   }
 
   initRestaurauntForCompanyUser() {

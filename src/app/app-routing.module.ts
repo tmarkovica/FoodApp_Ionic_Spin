@@ -8,10 +8,10 @@ const routes: Routes = [
   {
     path: "web",
     children:[
-      /*{
+      /* {
         path: '**',
         loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-      },*/
+      }, */
       {
         path: 'dashboard',
         loadChildren: () => import('./pages/web/dashboard/dashboard.module').then( m => m.DashboardPageModule)
@@ -31,9 +31,22 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: "mobile",
+    children:[
+      {
+        path: 'tabs',
+        loadChildren: () => import('./pages/mobile/tabs/tabs.module').then( m => m.TabsPageModule)
+      },
+    ],
+    resolve: {
+      restauraunt: RestaurauntResolverService
+    },
+    canActivate: [AuthGuard]
+  },
+  {
     path: '**',
       loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-  }
+  },
 ];
 @NgModule({
   imports: [

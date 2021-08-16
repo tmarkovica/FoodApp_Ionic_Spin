@@ -22,7 +22,7 @@
 
   <ion-router-outlet id="main"></ion-router-outlet>
 
-  <ion-fab id="main" vertical="top" horizontal="end" slot="fixed" [hidden]="!loggedIn">
+  <ion-fab id="main" vertical="top" horizontal="end" slot="fixed" [hidden]="isMobile">
     <ion-fab-button (click)="openMenu()">
       <ion-icon name="menu-outline"></ion-icon>
     </ion-fab-button>
