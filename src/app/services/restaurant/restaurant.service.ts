@@ -23,6 +23,7 @@ export class RestaurantService {
   _menuForWeek: BehaviorSubject<Array<MenuItem>> = new BehaviorSubject<Array<MenuItem>>([]);
 
   _allRestaurants: BehaviorSubject<Array<Restaurant>> = new BehaviorSubject<Array<Restaurant>>([]);
+  _allMenus: BehaviorSubject<MenuDish[]> = new BehaviorSubject<MenuDish[]>([]);
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
@@ -38,7 +39,6 @@ export class RestaurantService {
           },
           tablename: 'allRestaurants'
         },
-
         // allMenus
         {
           "query": "spMenu",
@@ -56,9 +56,11 @@ export class RestaurantService {
         const x = val.allRestaurants.map(r => ({
           companyId: r.companyId,
           name: r.name,
-          menus: [1, 2, 3, 4, 5].map(d => val.allMenus.filter(m => m.companyID === r.companyId && m.day === d)),
+          menus: [1, 2, 3, 4, 5].map(d => val.allMenus.filter(m => m.companyId === r.companyId && m.day === d)),
         }))
         this._allRestaurants.next(x);
+        console.log("allRestaurants");
+        console.log(this._allRestaurants.value);
       }
     }));
   }
@@ -187,5 +189,9 @@ export class RestaurantService {
 
   refreshData() {
     this._allDishesOfRestaurant.next(this._allDishesOfRestaurant.getValue());
+  }
+
+  getRestaurantById(id : number) {
+    return this._allRestaurants.getValue().find(r => r.companyId == id);
   }
 }

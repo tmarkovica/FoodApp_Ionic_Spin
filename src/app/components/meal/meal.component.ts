@@ -3,6 +3,7 @@ import { MenuItem } from 'src/app/interfaces/menu-item';
 import { Order } from 'src/app/interfaces/order';
 import { Dish } from 'src/app/interfaces/dish';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
+import { MenuDish } from 'src/app/interfaces/menu-dish';
 
 @Component({
   selector: 'app-meal',
@@ -14,6 +15,7 @@ export class MealComponent implements OnInit {
   @Input() order : Order;
   @Input() mealsForWeek : Dish;
   @Input() menuForWeek : MenuItem;
+  @Input() menuDish : MenuDish;
 
   mealName : string = "";
   mealDescription : string = "";
@@ -21,7 +23,7 @@ export class MealComponent implements OnInit {
   Salad : boolean = false;
   Bread : boolean = false;
 
-  constructor(private restaurauntService : RestaurantService) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -40,6 +42,9 @@ export class MealComponent implements OnInit {
     }
     else if (this.menuForWeek != null) {
       this.mealName = this.menuForWeek.name;
+    }
+    else if (this.menuDish != null) {
+      this.mealName = this.menuDish.name;
     }
   }
 }

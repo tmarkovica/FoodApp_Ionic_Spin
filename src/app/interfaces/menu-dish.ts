@@ -1,6 +1,6 @@
 export interface MenuDish {
     day: number,
-    companyID: number,
+    companyId: number,
     name: string,
     dishId: number,
     inCart?: boolean;

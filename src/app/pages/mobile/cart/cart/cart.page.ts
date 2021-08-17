@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuDish } from 'src/app/interfaces/menu-dish';
 
 @Component({
   selector: 'app-cart',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartPage implements OnInit {
 
-  constructor() { }
+  inCartDishes : MenuDish[];
+
+  constructor() { } //private cartService : CartService
 
   ngOnInit() {
+    /* this.cartService._inCartDishes.subscribe(cart => {
+      this.inCartDishes = cart;
+      console.log("cart:");      
+      console.log(cart);
+    }); */
   }
-
 }

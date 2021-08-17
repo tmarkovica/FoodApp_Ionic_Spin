@@ -19,12 +19,7 @@ export class DashboardPage implements OnInit {
       if (value.length) {
         this.allRestaurants = value;
         this.filteredRestauraunts = value;
-
         
-
-        console.log(this.allRestaurants);
-        console.log(value);
-
         this.setImages();
       }
     }); 
@@ -34,11 +29,15 @@ export class DashboardPage implements OnInit {
     this.allRestaurants.forEach(r => {
       const random = Math.floor(Math.random() * 5) + 1;
       r.image = `url("assets/restorani/restoran${random}.jpg")`
-    })
+    });
   }
 
   search(event) {
-    const query = event.target.value.toLowerCase();
-    this.filteredRestauraunts = !query ? [...this.allRestaurants] : this.allRestaurants.filter(r => r.name.toLowerCase() === event.toLowerCase());
+    const query = event.detail.value.toLowerCase();
+    //this.filteredRestauraunts = !query ? [...this.allRestaurants] : this.allRestaurants.filter(r => r.name.toLowerCase() === event.detail.value.toLowerCase());
+    // filter restaurants that start with search string
+    this.filteredRestauraunts = !query ? [...this.allRestaurants] : this.allRestaurants.filter(r => r.name.toLowerCase().startsWith(event.detail.value.toLowerCase()));
+    // sort filtered restaurants alphabetically
+    this.filteredRestauraunts = !query ? [...this.filteredRestauraunts] : this.filteredRestauraunts.sort((a, b) => a.name.toLowerCase() !== b.name.toLowerCase() ? a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 : 0);
   }
 }

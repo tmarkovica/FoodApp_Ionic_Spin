@@ -1,9 +1,23 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>restaurant</ion-title>
+    <ion-title>{{restaurant.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <app-days-navbar (changed)="navbarClickChangeDay($event)"></app-days-navbar>
+
+  <ion-searchbar showCancelButton="focus" cancelButtonText="Custom Cancel" id="searchbar" position="floating" (ionChange)=search($event)>
+  </ion-searchbar>
+
+  <ion-list>
+    <ion-card>
+      <span>
+        <app-meal *ngFor="let meal of currentDayMeals; index as i" [menuDish]="meal"
+        (click)="mealCardClicked_AddToCart(meal)" [inCart]="meal.inCart"></app-meal> 
+      </span>
+    </ion-card>
+  </ion-list>
 
 </ion-content>

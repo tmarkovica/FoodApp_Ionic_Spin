@@ -1,0 +1,25 @@
+ion-list {
+    display: flex;
+}
+
+ion-item {
+    --ion-background-color: #1cba5b;
+    width: (100%/5);
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bolder;
+    border-radius: 20px;
+    margin: 5px;
+}
+
+ion-item h2 {
+    font-size: small;
+}
+
+.active-day {
+    color: #1cba5b;
+    --ion-background-color: white;
+    border: 1px solid black;
+}
