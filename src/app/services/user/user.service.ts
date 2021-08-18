@@ -23,7 +23,9 @@ export class UserService {
     return this._user.getValue().companyId;
   }
 
-  constructor(private http: HttpClient, private router: Router, private storageService: StorageService) { }
+  constructor(private http: HttpClient, 
+    private router: Router, 
+    private storageService: StorageService) { }
 
   logiran: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 

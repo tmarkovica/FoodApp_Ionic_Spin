@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, Platform } from '@ionic/angular';
+import { CartService } from './mobile/services/cart.service';
 //import { platform } from 'os';
 import { StorageService } from './services/storage/storage.service';
 import { UserService } from './services/user/user.service';
@@ -16,7 +17,13 @@ export class AppComponent {
 
   isMobile: boolean;
 
-  constructor(private menu: MenuController, private userService: UserService, storageService: StorageService, router: Router, private platform: Platform) {
+  constructor(
+    private menu: MenuController, 
+    private userService: UserService, 
+    private storageService: StorageService, 
+    private router: Router, 
+    private platform: Platform, 
+    private cartService : CartService) {
     this.initializeApp();
     
     this.userService._user.subscribe(val => {
@@ -29,6 +36,14 @@ export class AppComponent {
       if (val) {
         userService._user.next(val);
         router.navigate(['/' + (!this.isMobile ? 'web' : 'mobile/tabs') + '/dashboard'], {replaceUrl: true});
+
+        if (this.isMobile) {
+          this.storageService.getData('cart').then(orders => {
+            this.cartService.orders.next(orders || []); // JSON.parse()
+            console.log("orders in storage: " + orders);
+            
+          });
+        }
       }
     });
 

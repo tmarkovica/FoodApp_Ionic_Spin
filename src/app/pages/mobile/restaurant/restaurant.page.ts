@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { MenuDish } from 'src/app/interfaces/menu-dish';
 import { Restaurant } from 'src/app/interfaces/restaurant';
+import { CartService } from 'src/app/mobile/services/cart.service';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
+import { CartPage } from '../cart/cart/cart.page';
 
 @Component({
   selector: 'app-restaurant',
@@ -12,14 +15,21 @@ import { RestaurantService } from 'src/app/services/restaurant/restaurant.servic
 })
 export class RestaurantPage implements OnInit {
 
-  restaurant : Restaurant;
+  restaurant: Restaurant;
 
-  currentDayMeals : MenuDish[];
-  _inCartDishes : BehaviorSubject<MenuDish[]> = new BehaviorSubject<MenuDish[]>([]);
+  currentDayMeals: MenuDish[];
+
+  _inCartDishes: BehaviorSubject<MenuDish[]> = new BehaviorSubject<MenuDish[]>([]); //***** */
+
+  orders: MenuDish[];
 
   currentDay = 1;  // minus 1
 
-  constructor(private route : ActivatedRoute, private restaurantService : RestaurantService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private restaurantService: RestaurantService,
+    private cartService: CartService/* ,
+    private storageService : StorageService */) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -27,7 +37,19 @@ export class RestaurantPage implements OnInit {
       console.log(this.restaurant);
 
       this.filterMealsForCurrentDay();
+      this.orders = this.cartService.orders.getValue();
+      this.showForDay();
+      this.cartService.orders.subscribe(orders => {
+        this.orders = orders;
+      });
     });
+  }
+
+  showForDay() {
+    this.currentDayMeals = this.restaurant.menus[this.currentDay - 1].map(dish => {
+      dish.inCart = !!this.orders.find(o => o.day === dish.day && o.dishId === dish.dishId);
+      return dish;
+    })
   }
 
   filterMealsForCurrentDay() {
@@ -36,13 +58,13 @@ export class RestaurantPage implements OnInit {
 
   navbarClickChangeDay(day: number) {
     this.currentDay = day;
-    this.filterMealsForCurrentDay(); 
+    this.filterMealsForCurrentDay();
   }
 
   search(event) {
     const query = event.detail.value.toLowerCase();
-   // this.filterMealsForCurrentDay();
-   //currentDayMeals - prazan array ako nema za taj dan jela
+    // this.filterMealsForCurrentDay();
+    //currentDayMeals - prazan array ako nema za taj dan jela
     //if (!this.currentDayMeals) return;
     this.currentDayMeals = !query ? [...this.restaurant.menus[this.currentDay - 1]] : this.restaurant.menus[this.currentDay - 1].filter(r => r.name.toLowerCase().startsWith(event.detail.value.toLowerCase()));
     //sort i na pocetku; ili bez
@@ -50,8 +72,7 @@ export class RestaurantPage implements OnInit {
   }
 
   mealCardClicked_AddToCart(addedDish: MenuDish) {
-    console.log(`added dish:`);
-    console.log(addedDish);
+
 
     this.restaurant.menus[this.currentDay - 1].find(m => m == addedDish).inCart = !addedDish.inCart;
     const cart = this._inCartDishes.getValue();
@@ -63,5 +84,16 @@ export class RestaurantPage implements OnInit {
     //   this._inCartDishes.next(cart);
     // }
     this._inCartDishes.next([...cart, addedDish]);
+
+    addedDish.inCart = this.cartService.toggleDishInCart(addedDish);
+  }
+
+  showCart() {
+    /* const modal await this.modalCtrl.create({
+      Component: CartPage,
+      componentProps: {
+        modalPage: true;
+      }
+    }) */
   }
 }

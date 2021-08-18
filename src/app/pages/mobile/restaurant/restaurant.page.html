@@ -1,5 +1,9 @@
 <ion-header>
   <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
     <ion-title>{{restaurant.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -19,5 +23,12 @@
       </span>
     </ion-card>
   </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [disabled]='false' (click)="showCart()" [routerLink]="['/mobile/tabs/cart']"> <!-- currentDayMeals?.length  -- za disabled-->
+      <ion-icon name="cart"></ion-icon>
+    </ion-fab-button>
+    <ion-badge>{{orders?.length || 0}}</ion-badge>
+  </ion-fab>
 
 </ion-content>
