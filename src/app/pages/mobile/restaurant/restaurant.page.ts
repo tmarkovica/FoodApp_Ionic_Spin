@@ -17,6 +17,7 @@ export class RestaurantPage implements OnInit {
   currentDayMeals : MenuDish[];
   _inCartDishes : BehaviorSubject<MenuDish[]> = new BehaviorSubject<MenuDish[]>([]);
 
+  //minus 1
   currentDay = 1;
 
   constructor(private route : ActivatedRoute, private restaurantService : RestaurantService) { }
@@ -41,9 +42,11 @@ export class RestaurantPage implements OnInit {
 
   search(event) {
     const query = event.detail.value.toLowerCase();
-    this.filterMealsForCurrentDay();
+   // this.filterMealsForCurrentDay();
+   //currentDayMeals - prazan array ako nema za taj dan jela
     if (!this.currentDayMeals) return;
     this.currentDayMeals = !query ? [...this.restaurant.menus[this.currentDay]] : this.restaurant.menus[this.currentDay].filter(r => r.name.toLowerCase().startsWith(event.detail.value.toLowerCase()));
+    //sort i na pocetku; ili bez
     this.currentDayMeals = !query ? [...this.currentDayMeals] : this.currentDayMeals.sort((a, b) => a.name.toLowerCase() !== b.name.toLowerCase() ? a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 : 0);
   }
 
@@ -53,6 +56,13 @@ export class RestaurantPage implements OnInit {
 
     this.restaurant.menus[this.currentDay].find(m => m == addedDish).inCart = !addedDish.inCart;
     const cart = this._inCartDishes.getValue();
+    // if(se nalazi vec) {
+    //   //izbaci
+    // }
+    // else {
+    //   cart.push(addedDish);
+    //   this._inCartDishes.next(cart);
+    // }
     this._inCartDishes.next([...cart, addedDish]);
   }
 }
