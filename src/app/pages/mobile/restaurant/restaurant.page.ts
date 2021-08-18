@@ -17,8 +17,7 @@ export class RestaurantPage implements OnInit {
   currentDayMeals : MenuDish[];
   _inCartDishes : BehaviorSubject<MenuDish[]> = new BehaviorSubject<MenuDish[]>([]);
 
-  //minus 1
-  currentDay = 1;
+  currentDay = 1;  // minus 1
 
   constructor(private route : ActivatedRoute, private restaurantService : RestaurantService) { }
 
@@ -32,7 +31,7 @@ export class RestaurantPage implements OnInit {
   }
 
   filterMealsForCurrentDay() {
-    this.currentDayMeals = this.restaurant.menus[this.currentDay];
+    this.currentDayMeals = this.restaurant.menus[this.currentDay - 1];
   }
 
   navbarClickChangeDay(day: number) {
@@ -44,17 +43,17 @@ export class RestaurantPage implements OnInit {
     const query = event.detail.value.toLowerCase();
    // this.filterMealsForCurrentDay();
    //currentDayMeals - prazan array ako nema za taj dan jela
-    if (!this.currentDayMeals) return;
-    this.currentDayMeals = !query ? [...this.restaurant.menus[this.currentDay]] : this.restaurant.menus[this.currentDay].filter(r => r.name.toLowerCase().startsWith(event.detail.value.toLowerCase()));
+    //if (!this.currentDayMeals) return;
+    this.currentDayMeals = !query ? [...this.restaurant.menus[this.currentDay - 1]] : this.restaurant.menus[this.currentDay - 1].filter(r => r.name.toLowerCase().startsWith(event.detail.value.toLowerCase()));
     //sort i na pocetku; ili bez
-    this.currentDayMeals = !query ? [...this.currentDayMeals] : this.currentDayMeals.sort((a, b) => a.name.toLowerCase() !== b.name.toLowerCase() ? a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 : 0);
+    //this.currentDayMeals = !query ? [...this.currentDayMeals] : this.currentDayMeals.sort((a, b) => a.name.toLowerCase() !== b.name.toLowerCase() ? a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 : 0);
   }
 
   mealCardClicked_AddToCart(addedDish: MenuDish) {
     console.log(`added dish:`);
     console.log(addedDish);
 
-    this.restaurant.menus[this.currentDay].find(m => m == addedDish).inCart = !addedDish.inCart;
+    this.restaurant.menus[this.currentDay - 1].find(m => m == addedDish).inCart = !addedDish.inCart;
     const cart = this._inCartDishes.getValue();
     // if(se nalazi vec) {
     //   //izbaci

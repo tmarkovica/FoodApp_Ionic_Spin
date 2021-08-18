@@ -1,28 +1,23 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth/auth.guard';
-import { LoginPageModule } from './pages/login/login.module';
 import { RestaurauntResolverService } from './resolvers/rastaurauntResolver/restauraunt-resolver.service';
 
 const routes: Routes = [
   {
     path: "web",
-    children:[
-      /* {
-        path: '**',
-        loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-      }, */
+    children: [
       {
         path: 'dashboard',
-        loadChildren: () => import('./pages/web/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+        loadChildren: () => import('./pages/web/dashboard/dashboard.module').then(m => m.DashboardPageModule)
       },
       {
         path: 'new-meal',
-        loadChildren: () => import('./pages/web/new-meal/new-meal.module').then( m => m.NewMealPageModule)
+        loadChildren: () => import('./pages/web/new-meal/new-meal.module').then(m => m.NewMealPageModule)
       },
       {
         path: 'menu',
-        loadChildren: () => import('./pages/web/menu/menu.module').then( m => m.MenuPageModule)
+        loadChildren: () => import('./pages/web/menu/menu.module').then(m => m.MenuPageModule)
       }
     ],
     resolve: {
@@ -32,11 +27,15 @@ const routes: Routes = [
   },
   {
     path: "mobile",
-    children:[
+    children: [
       {
         path: 'tabs',
-        loadChildren: () => import('./pages/mobile/tabs/tabs.module').then( m => m.TabsPageModule)
+        loadChildren: () => import('./pages/mobile/tabs/tabs.module').then(m => m.TabsPageModule)
       },
+      {
+        path: 'restaurant',
+        loadChildren: () => import('./pages/mobile/restaurant/restaurant.module').then(m => m.RestaurantPageModule)
+      }
     ],
     resolve: {
       restauraunt: RestaurauntResolverService
@@ -45,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-      loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
   },
 ];
 @NgModule({
@@ -54,4 +53,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -10,7 +10,7 @@
   </ion-searchbar>
 
   <ion-list>
-    <ion-card class="ion-text-center ion-padding" [routerLink]="['/mobile/tabs/restaurant']"
+    <ion-card class="ion-text-center ion-padding" [routerLink]="['/mobile/restaurant']"
       [queryParams]='{id: restaurant.companyId}' *ngFor="let restaurant of filteredRestauraunts"
       [ngStyle]="{'background-image': restaurant.image}">
       <ion-card-header>

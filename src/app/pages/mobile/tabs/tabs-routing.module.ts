@@ -19,14 +19,8 @@ const routes: Routes = [
         path: 'cart',
         loadChildren: () => import('../cart/cart/cart.module').then( m => m.CartPageModule)
       },
-      //ruta u glavni ruter
-      {
-        path: 'restaurant',
-        loadChildren: () => import('../restaurant/restaurant.module').then( m => m.RestaurantPageModule)
-      }
     ]
   },
-  
 ];
 
 @NgModule({
