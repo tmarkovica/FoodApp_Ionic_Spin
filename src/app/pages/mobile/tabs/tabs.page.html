@@ -5,10 +5,10 @@
       <ion-label>Dashboard</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="cart">
+    <ion-tab-button tab="cart" [disabled]="numberOfItemsInCart === 0">
       <ion-icon name="cart"></ion-icon>
       <ion-label>Cart</ion-label>
-      <ion-badge>{{itemsInCart}}</ion-badge>
+      <ion-badge>{{numberOfItemsInCart}}</ion-badge>
     </ion-tab-button>
 
     <ion-tab-button tab="profile">

@@ -20,7 +20,9 @@ export class MenuPage implements OnInit {
 
   searchInput: string = "";
 
-  constructor(private router: Router, private restaurauntService: RestaurantService) { }
+  constructor(
+    private router: Router,
+    private restaurauntService: RestaurantService) { }
 
   private filterWeekMenuForCurrentday() {
     this.menuForWeekAndCompany_currentDayMenu = this.menuForWeekAndCompany.filter(o => o.day == this.currentDay);
@@ -29,6 +31,7 @@ export class MenuPage implements OnInit {
   private subscribeToGetAllDishesOfRestaurant() {
     this.restaurauntService._allDishesOfRestaurant.subscribe(val => {
       this.allDishesOfRestaurant = val;
+      this.sortAllDishesOfRestaurantAlphabetically();
     });
   }
 
@@ -44,7 +47,7 @@ export class MenuPage implements OnInit {
     this.subscribeToGetMenuForWeekAndCompany();
   }
 
-  addNewMeal() {
+  addNewMealButtonClick() {
     this.router.navigate(['/web/new-meal'], { replaceUrl: true });
   }
 
@@ -53,15 +56,14 @@ export class MenuPage implements OnInit {
     this.filterWeekMenuForCurrentday();
   }
 
-  private findDishAddedToMenu(i: number) {
-    return this.menuForWeekAndCompany_currentDayMenu.find(o => o.name == this.allDishesOfRestaurant[i].Name);
+  private currentDayMenu_IncludesDishFrom_AllDishesOfRestaurnat_AtIndex(i: number): boolean {
+    return this.menuForWeekAndCompany_currentDayMenu.find(o => o.name == this.allDishesOfRestaurant[i].Name) !== undefined;
   }
 
   mealCardClicked_AddDishToMenu(i: number) {
-    if (this.findDishAddedToMenu(i) == null) {
+    if (this.currentDayMenu_IncludesDishFrom_AllDishesOfRestaurnat_AtIndex(i) === false) {
       this.restaurauntService.insertDishInMenu(this.allDishesOfRestaurant[i].DishId, this.currentDay, this.allDishesOfRestaurant[i].Name);
-    }
-    else {
+    } else {
       console.log("Already contains element!");
     }
   }
@@ -74,7 +76,7 @@ export class MenuPage implements OnInit {
     this.restaurauntService.deleteDishFromMenu(dishToDelete.DishId, this.menuForWeekAndCompany_currentDayMenu[i].day);
   }
 
-  private deleteDishFromWeekMenu_local(i: number) {
+  private deleteDishFromWeekMenu_localArray(i: number) {
     this.menuForWeekAndCompany.splice(this.menuForWeekAndCompany.indexOf(this.menuForWeekAndCompany.find(o => o == this.menuForWeekAndCompany_currentDayMenu[i])), 1);
     this.filterWeekMenuForCurrentday();
   }
@@ -84,49 +86,26 @@ export class MenuPage implements OnInit {
     const dishToDelete: Dish = this.getDishToDeleteFromAllDishesOfRestaurant(i);
     console.log(dishToDelete);
     this.deleteDishFromWeekMenu_api(dishToDelete, i);
-    this.deleteDishFromWeekMenu_local(i);
-  }
-
-  isAlreadyInMenu(i: number): boolean {
-    if (this.findDishAddedToMenu(i) == null) {
-      return false;
-    }
-    else {
-      return true;
-    }
-  }
-
-  private getFilteredArray_allDishesOfRestaurant() {
-    let tempArr: Array<Dish>;
-    tempArr = this.allDishesOfRestaurant.filter(o => {
-      //return o.Name.toLowerCase().indexOf(this.searchInput.toLowerCase()) > -1; // jela koja sadrze searchInput string
-      return o.Name.toLowerCase().startsWith(this.searchInput.toLowerCase()); // jela koja pocinju sa searchInput stringom
-    });
-    //tempArr.sort((a, b) => a.Name.startsWith(this.searchInput) ? -1 : 1); // jela sortirati da počnu po abecedi
-    tempArr.sort((a, b) => a.Name.toLowerCase() !== b.Name.toLowerCase() ? a.Name.toLowerCase() < b.Name.toLowerCase() ? -1 : 1 : 0); // sortira jela po abecedi
-    console.log(tempArr);
-    return tempArr;
-  }
-
-  private getFilteredArray_menuForWeekAndCompany_currentDayMenu() {
-    let tempArr: Array<MenuItem>;
-    tempArr = this.menuForWeekAndCompany_currentDayMenu.filter(o => { // jela koja sadrze searchInput string
-      return o.name.toLowerCase().startsWith(this.searchInput.toLowerCase());
-    });
-    tempArr.sort((a, b) => a.name.toLowerCase() !== b.name.toLowerCase() ? a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 : 0); // jela sortirati da počnu po abecedi
-    return tempArr;
+    this.deleteDishFromWeekMenu_localArray(i);
   }
 
   private collectDataBeforeFiltering() {
     this.restaurauntService.refreshData();
     this.filterWeekMenuForCurrentday();
+    this.sortAllDishesOfRestaurantAlphabetically();
+  }
+
+  private filterAllDishesOfRestaurantThatStartWith(query: string) {
+    this.allDishesOfRestaurant = !query ? [...this.allDishesOfRestaurant] : this.allDishesOfRestaurant.filter(r => r.Name.toLowerCase().startsWith(query));
+  }
+
+  private sortAllDishesOfRestaurantAlphabetically() {
+    this.allDishesOfRestaurant.sort((a, b) => a.Name.toLowerCase() !== b.Name.toLowerCase() ? a.Name.toLowerCase() < b.Name.toLowerCase() ? -1 : 1 : 0);
   }
 
   setFilteredItems() {
     this.collectDataBeforeFiltering();
-    if (this.searchInput === "")
-      return;
-    this.allDishesOfRestaurant = this.getFilteredArray_allDishesOfRestaurant();
-    this.menuForWeekAndCompany_currentDayMenu = this.getFilteredArray_menuForWeekAndCompany_currentDayMenu();
+    this.filterAllDishesOfRestaurantThatStartWith(this.searchInput);
+    this.sortAllDishesOfRestaurantAlphabetically();
   }
 }

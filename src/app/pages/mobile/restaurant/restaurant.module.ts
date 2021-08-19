@@ -8,7 +8,7 @@ import { RestaurantPageRoutingModule } from './restaurant-routing.module';
 
 import { RestaurantPage } from './restaurant.page';
 import { DaysNavbarComponent } from 'src/app/mobile/components/days-navbar/days-navbar.component';
-import { MealComponent } from 'src/app/mobile/components/meal/meal.component';
+import { MealComponent } from 'src/app/components/meal/meal.component';
 
 @NgModule({
   imports: [

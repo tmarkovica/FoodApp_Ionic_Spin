@@ -8,7 +8,7 @@
   <ion-list>
     <ion-card>
       <span>
-        <app-meal *ngFor="let order of orders; index as i" [menuDish]="order"></app-meal> <!-- dodati ikonicu koja pokazuje koji dan je naruceno jelo -->
+        <app-meal *ngFor="let order of orders; index as i" [menuDish]="order" [mealOrderDay]="order.day"></app-meal>
       </span>
     </ion-card>
   </ion-list>

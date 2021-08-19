@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { MenuDish } from 'src/app/interfaces/menu-dish';
+import { UserOrder } from 'src/app/interfaces/user-order';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -14,19 +15,17 @@ export class CartService {
 
   orders: BehaviorSubject<MenuDish[]> = new BehaviorSubject([]);
 
+  _allOrders: BehaviorSubject<UserOrder[]> = new BehaviorSubject([]);
+
   constructor(
     private storageService: StorageService,
     private http: HttpClient,
     private userService: UserService) { }
 
   toggleDishInCart(dish: MenuDish): boolean {
-    //this.orders.next(dish)
     const x: MenuDish = Object.assign({}, dish); // novi objekt koji ima sve isto sto i dish
     const orders = this.orders.getValue();
     const index = orders.findIndex(o => o.dishId === dish.dishId && o.day === dish.day);
-
-    console.log(`added dish:`);
-    console.log(dish);
 
     if (index === -1) { // dish is not in cart
       delete x.inCart; // deleting property
@@ -40,8 +39,7 @@ export class CartService {
     return index === -1;
   }
 
-  async finishOrder() {
-    const order = this.orders.getValue()[0]; // poslan je samo prvi order od svih ordera
+  private async storeOrderToApi(order: MenuDish) {
     await this.http.post(this.url, {
       "db": "Food",
       "queries": [
@@ -54,8 +52,41 @@ export class CartService {
           }
         }
       ]
-    }).toPromise();
+    }).toPromise().then((val: Array<{ ID: number }>) => {
+      if (val.length > 0) {
+        console.log("Dish is stored to api:");
+        console.log(val);
+      }
+    });
+  }
+
+  async finishOrder() {
+    await this.orders.getValue().forEach(element => {
+      this.storeOrderToApi(element);
+    });
+
     this.orders.next([]);
     this.storageService.removeData('cart');
+  }
+
+  getOrdersForUser() {
+    this.http.post(this.url, {
+      "db": "Food",
+      "queries": [
+        {
+            "query": "spOrdersQuery",
+            "params": {
+                "action": "forUser",
+                "userid": this.userService._user.getValue().userId
+            }
+        }
+    ]
+    }).toPromise().then((val: UserOrder[]) => {
+      if (val.length > 0) {
+        this._allOrders.next(val);
+      } else {
+        console.log("Couldn't get orders for user.");        
+      }
+    });
   }
 }

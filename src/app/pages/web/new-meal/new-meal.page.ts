@@ -1,6 +1,6 @@
-import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
 
 @Component({
@@ -16,7 +16,10 @@ export class NewMealPage implements OnInit {
   salad : boolean = false;
   bread : boolean = false;
 
-  constructor(private router : Router, private restaurauntService : RestaurantService) { }
+  constructor(
+    private router : Router, 
+    private restaurauntService : RestaurantService,
+    private toastController : ToastController) { }
 
   ngOnInit() {
   }
@@ -36,5 +39,16 @@ export class NewMealPage implements OnInit {
     this.soup = false;
     this.salad = false;
     this.bread = false;
+
+    this.presentToast();
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'You added new dish to restaurant.',
+      duration: 2000,
+      color: 'success'
+    });
+    toast.present();
   }
 }

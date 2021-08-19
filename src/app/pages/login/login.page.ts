@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageService } from 'src/app/services/storage/storage.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -14,8 +13,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  username: string = "vedran.prpic1@gmail.com"; //"tmark@gmail.com";
-  password: string = "lozinka"; //"tmark@gmail.com";
+  username: string = "tmark@gmail.com"; // "vedran.prpic1@gmail.com"; //"";
+  password: string = "tmark"; // "lozinka"; //
 
   showRegistration:boolean = false;
   

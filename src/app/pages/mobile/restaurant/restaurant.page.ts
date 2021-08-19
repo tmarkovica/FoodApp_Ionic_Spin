@@ -5,8 +5,6 @@ import { MenuDish } from 'src/app/interfaces/menu-dish';
 import { Restaurant } from 'src/app/interfaces/restaurant';
 import { CartService } from 'src/app/mobile/services/cart.service';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
-import { StorageService } from 'src/app/services/storage/storage.service';
-import { CartPage } from '../cart/cart/cart.page';
 
 @Component({
   selector: 'app-restaurant',
@@ -28,8 +26,7 @@ export class RestaurantPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private restaurantService: RestaurantService,
-    private cartService: CartService/* ,
-    private storageService : StorageService */) { }
+    private cartService: CartService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {

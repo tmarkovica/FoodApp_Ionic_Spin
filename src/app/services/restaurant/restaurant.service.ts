@@ -25,7 +25,9 @@ export class RestaurantService {
   _allRestaurants: BehaviorSubject<Array<Restaurant>> = new BehaviorSubject<Array<Restaurant>>([]);
   _allMenus: BehaviorSubject<MenuDish[]> = new BehaviorSubject<MenuDish[]>([]);
 
-  constructor(private http: HttpClient, private userService: UserService) { }
+  constructor(
+    private http: HttpClient, 
+    private userService: UserService) { }
 
   initRestaurauntForCustomerUser() {
     return this.http.post(this.url, {
@@ -133,7 +135,10 @@ export class RestaurantService {
         }
       ]
     }).toPromise().then((val: string) => {
-      console.log("New Meal Added");
+      console.log("New Meal Added: ");
+      console.log(val);
+      
+      this.initRestaurauntForCompanyUser(); // calls api again because there is no reply to get dishId
     });
   }
 

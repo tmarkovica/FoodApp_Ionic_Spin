@@ -31,7 +31,7 @@ export class CartPage implements OnInit {
     const toast = await this.toastController.create({
       message: 'Order confirmed.',
       duration: 2000,
-      color: 'primary'
+      color: 'success'
     });
     toast.present();
   }

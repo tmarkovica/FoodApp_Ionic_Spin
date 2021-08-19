@@ -6,22 +6,22 @@
   <ion-searchbar showCancelButton="focus" cancelButtonText="Custom Cancel" id="searchbar" position="floating">
   </ion-searchbar>
 
-  <section>
-    <article>
+  <ion-grid>
+    <ion-col>
       <h2>Spin</h2>
       <p>Županijska 15</p>
       <span *ngFor="let order of orders; "><app-meal [order]="order"></app-meal></span>
-    </article>
-    <article>
+    </ion-col>
+    <ion-col>
       <h2>Company Name</h2>
       <p>Company Adress</p>
-      <!-- <span *ngFor="let order of getOrdersForDay()"><app-meal [order]="order"></app-meal></span> -->
-    </article>
-    <article>
+      <span *ngFor="let order of orders; "><app-meal [order]="order"></app-meal></span>
+    </ion-col>
+    <ion-col>
       <h2>Company Name</h2>
       <p>Company Adress</p>
-      <!-- <span><app-meal></app-meal></span> -->
-    </article>
-  </section>
+      <span *ngFor="let order of orders; "><app-meal [order]="order"></app-meal></span>
+    </ion-col>
+  </ion-grid>
 
 </ion-content>

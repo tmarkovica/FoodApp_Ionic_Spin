@@ -1,6 +1,9 @@
-<ion-card class="mealCard">
+<ion-card class="mealCard" [ngClass]="{'colorCardIfAdded': isAdded}">
   <ion-img src="assets/images/Ellipse 1.png" id="mealImage"></ion-img>
   <h1>{{mealName}}</h1>
-  <p>{{Salad}}, {{Bread}}, {{Soup}}</p>
-  <p>Količina: {{kolicina}}</p>  
+  <p>{{salad}}, {{bread}}, {{soup}}</p>
+  <p>Količina: {{kolicina}}</p>
+  <ion-item class="dayLabel" [ngClass]="{'dayLabelHidden': mealOrderDay === undefined ? true : false}">
+    <h3>{{dayNames[mealOrderDay-1]}}</h3>
+  </ion-item>
 </ion-card>

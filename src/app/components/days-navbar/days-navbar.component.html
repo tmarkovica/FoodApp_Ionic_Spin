@@ -1,8 +1,8 @@
-<div class="days">
+<ion-content class="days">
   <div class="day">
-    <img class="logo" src="assets/images/logobijeli-01 1.png" alt="">
+    <ion-img class="logo" src="assets/images/logobijeli-01 1.png" alt=""></ion-img>
   </div>
   <div [ngClass]="{'day': true, 'active-day': day == currentDay}" *ngFor="let day of days" color="primary" (click)="changeDay(day)">
     <span><h2>{{daysNames[day-1]}}</h2></span>
   </div>
-</div>
+</ion-content>

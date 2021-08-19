@@ -2,7 +2,7 @@
     float: left;
     width: 7%;
     height: 100%;
-    background-color: #1CBA5B;
+    --ion-background-color: #1CBA5B;
     position: fixed;
 }
 .day {
@@ -17,6 +17,12 @@
     font-weight: bolder;
     cursor: pointer;
 }
+
+.logo {
+    height: auto;
+    width: auto;
+}
+
 .active-day {
     color:  #1CBA5B;
     background-color: white;

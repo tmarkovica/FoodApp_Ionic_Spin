@@ -7,19 +7,20 @@
     [(ngModel)]="searchInput" (ionChange)=setFilteredItems()>
   </ion-searchbar>
 
-  <section>
-    <article>
+  <ion-grid>
+    <ion-col>
       <h2>Non active meals</h2>
       <p>Click on the meal card to add it to your day menu</p>
       <ion-content class="mealsBlock">
         <span id="cardDish_allDishesOfRestaurant">
-          <app-meal *ngFor="let order of allDishesOfRestaurant; index as i" [mealsForWeek]="order"
-            (click)="mealCardClicked_AddDishToMenu(i)"></app-meal>
+          <app-meal *ngFor="let order of allDishesOfRestaurant; index as i" [allDishesOfRestaurant]="order"
+            (click)="mealCardClicked_AddDishToMenu(i)" [isAdded]="currentDayMenu_IncludesDishFrom_AllDishesOfRestaurnat_AtIndex(i)"></app-meal>
         </span>
       </ion-content>
-      <ion-button (click)="addNewMeal()" id="buttonNewMeal">ADD NEW MEAL</ion-button>
-    </article>
-    <article>
+      <ion-button (click)="addNewMealButtonClick()" id="buttonNewMeal">ADD NEW MEAL</ion-button>
+    </ion-col>
+
+    <ion-col>
       <h2>Current meals</h2>
       <p>Currently available meals on your daily menu</p>
       <ion-content class="mealsBlock">
@@ -28,7 +29,7 @@
             (click)="mealCardClicked_RemoveDishFromMenu(i)"></app-meal>
         </span>
       </ion-content>
-    </article>
-  </section>
+    </ion-col>
+  </ion-grid>
 
 </ion-content>

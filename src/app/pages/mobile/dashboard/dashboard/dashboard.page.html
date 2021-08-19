@@ -6,13 +6,14 @@
 
 <ion-content>
 
-  <ion-searchbar showCancelButton="focus" cancelButtonText="Custom Cancel" id="searchbar" position="floating" (ionChange)=search($event)>
+  <ion-searchbar showCancelButton="focus" cancelButtonText="Custom Cancel" id="searchbar" position="floating"
+    (ionChange)=search($event)>
   </ion-searchbar>
 
   <ion-list>
-    <ion-card class="ion-text-center ion-padding" [routerLink]="['/mobile/restaurant']"
+    <ion-card class="ion-text-center ion-padding restaurantImage" [routerLink]="['/mobile/restaurant']"
       [queryParams]='{id: restaurant.companyId}' *ngFor="let restaurant of filteredRestauraunts"
-      [ngStyle]="{'background-image': restaurant.image}" class="image--size">
+      [ngStyle]="{'background-image': restaurant.image}" slidesPerView="1">
       <ion-card-header>
         <ion-card-title class="ion-margin-top">
           <ion-text>{{restaurant.name}}</ion-text>

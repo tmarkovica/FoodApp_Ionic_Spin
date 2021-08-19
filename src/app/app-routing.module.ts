@@ -35,6 +35,10 @@ const routes: Routes = [
       {
         path: 'restaurant',
         loadChildren: () => import('./pages/mobile/restaurant/restaurant.module').then(m => m.RestaurantPageModule)
+      },
+      {
+        path: 'my-orders',
+        loadChildren: () => import('./pages/mobile/my-orders/my-orders.module').then(m => m.MyOrdersPageModule)
       }
     ],
     resolve: {
@@ -45,6 +49,10 @@ const routes: Routes = [
   {
     path: '**',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
+  },
+  {
+    path: 'my-orders',
+    loadChildren: () => import('./pages/mobile/my-orders/my-orders.module').then(m => m.MyOrdersPageModule)
   },
 ];
 @NgModule({

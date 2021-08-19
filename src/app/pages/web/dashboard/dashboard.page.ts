@@ -15,9 +15,6 @@ export class DashboardPage implements OnInit {
   ordersSortedByDay: Array<Order>;
 
   ordersFromCompany: Array<Array<Order>> = new Array<Array<Order>>();
-
-  /* days = [1, 2, 3, 4, 5];
-  daysNames = ["MON", "TUE", "WED", "THU", "FRI"]; */
   daysNamesCro = ["Ponedjeljak", "Utorak", "Srijeda", "Četvrtak", "Petak"];
 
   currentDay = 1;

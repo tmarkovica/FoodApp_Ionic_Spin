@@ -9,20 +9,29 @@ import { RestaurantService } from 'src/app/services/restaurant/restaurant.servic
 })
 export class DashboardPage implements OnInit {
 
-  allRestaurants : Restaurant[];
+  allRestaurants: Restaurant[];
   filteredRestauraunts: Restaurant[];
 
-  constructor(private restaurauntService : RestaurantService) { }
+  constructor(
+    private restaurauntService: RestaurantService) { }
+
+  private sortFilteredRestaurantsAlphabetically(query: string) {
+    this.filteredRestauraunts = !query ? [...this.filteredRestauraunts] : this.filteredRestauraunts.sort((a, b) => a.name.toLowerCase() !== b.name.toLowerCase() ? a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 : 0);
+  }
+
+  private filterRestaurantsThatStartWith(query: string) {
+    this.filteredRestauraunts = !query ? [...this.allRestaurants] : this.allRestaurants.filter(r => r.name.toLowerCase().startsWith(query));
+  }
 
   ngOnInit() {
     this.restaurauntService._allRestaurants.subscribe(value => {
       if (value.length) {
         this.allRestaurants = value;
         this.filteredRestauraunts = value;
-        
+        //this.sortFilteredRestaurantsAlphabetically(" ");
         this.setImages();
       }
-    }); 
+    });
   }
 
   setImages() {
@@ -34,10 +43,7 @@ export class DashboardPage implements OnInit {
 
   search(event) {
     const query = event.detail.value.toLowerCase();
-    //this.filteredRestauraunts = !query ? [...this.allRestaurants] : this.allRestaurants.filter(r => r.name.toLowerCase() === event.detail.value.toLowerCase());
-    // filter restaurants that start with search string
-    this.filteredRestauraunts = !query ? [...this.allRestaurants] : this.allRestaurants.filter(r => r.name.toLowerCase().startsWith(event.detail.value.toLowerCase()));
-    // sort filtered restaurants alphabetically
-    this.filteredRestauraunts = !query ? [...this.filteredRestauraunts] : this.filteredRestauraunts.sort((a, b) => a.name.toLowerCase() !== b.name.toLowerCase() ? a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 : 0);
+    this.filterRestaurantsThatStartWith(query);
+    this.sortFilteredRestaurantsAlphabetically(query);
   }
 }

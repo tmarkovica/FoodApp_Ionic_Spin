@@ -3,18 +3,21 @@
   <div class="center">
     <ion-input placeholder="Enter username" type="text" [(ngModel)]="username" class="userInput separate"></ion-input>
     <ion-input placeholder="Enter e-mail" type="text" [(ngModel)]="email" class="userInput separate"></ion-input>
-    <ion-input placeholder="Input password" type="password" [(ngModel)]="password" class="userInput separate"></ion-input>
-    
+    <ion-input placeholder="Input password" type="password" [(ngModel)]="password" class="userInput separate">
+    </ion-input>
+
     <br>
     <p>Business owner? {{restorauntOwner ? "Yes" : "No"}}</p>
     <ion-toggle color="dark" [(ngModel)]="restorauntOwner"></ion-toggle>
     <br>
 
     <div [hidden]="!restorauntOwner">
-      <ion-input placeholder="Enter company name" type="text" [(ngModel)]="companyName" class="userInput separate"></ion-input>
-      <ion-input placeholder="Enter status" type="number" min="0" [(ngModel)]="status" class="userInput separate"></ion-input>
+      <ion-input placeholder="Enter company name" type="text" [(ngModel)]="companyName" class="userInput separate">
+      </ion-input>
+      <ion-input placeholder="Enter status" type="number" min="0" [(ngModel)]="status" class="userInput separate">
+      </ion-input>
     </div>
-    <ion-button color="secondary" (click)=registerClick() class="separate">Register</ion-button>  
+    <ion-button color="secondary" (click)=registerClick() class="separate">Register</ion-button>
   </div>
 
 </ion-content>

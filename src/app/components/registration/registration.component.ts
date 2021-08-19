@@ -1,4 +1,3 @@
-import { NumberSymbol } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -11,28 +10,28 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private service: UserService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   // user
-  username : string = "";
-  email : string = "";
-  password : string = "";
-  restorauntOwner : boolean = false;
-  
+  username: string = "";
+  email: string = "";
+  password: string = "";
+  restorauntOwner: boolean = false;
+
   // company
-  companyName : string = "";
-  status : number; 
+  companyName: string = "";
+  status: number;
 
   registerClick() {
-    
+
     console.log("isOwner: " + this.restorauntOwner);
 
     this.service.registerUser(this.username, this.email, this.password, this.restorauntOwner, this.companyName, this.status);
-        
+
     this.username = "";
     this.email = "";
     this.password = "";
     this.companyName = "";
-    this.status = 0; 
+    this.status = 0;
   }
 }

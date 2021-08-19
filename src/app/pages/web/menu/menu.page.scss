@@ -1,10 +1,10 @@
 #heading {
-    float: left; 
+    float: left;
     margin-left: 40%;
 }
 
 #searchbar {
-    float: right; 
+    float: right;
     width: 20%;
     margin-right: 80px;
 }
@@ -13,17 +13,16 @@
     text-align: center;
 }
 
-section {
+ion-grid {
     display: flex;
     clear: both;
     margin-left: 7%;
 }
 
-article {
-    flex: 1;
+ion-col {
     margin: 20px;
     text-align: center;
-    align-items: center;    
+    align-items: center;
 }
 
 #cardDish_allDishesOfRestaurant :hover {
@@ -50,4 +49,8 @@ article {
     bottom: 30px;
     position: fixed;
     left: 10em;
+}
+
+.colorDishAlreadyInMenu {
+    background-color: #92fa9b !important;
 }

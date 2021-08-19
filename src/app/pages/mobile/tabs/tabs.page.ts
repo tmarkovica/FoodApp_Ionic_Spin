@@ -8,13 +8,14 @@ import { CartService } from 'src/app/mobile/services/cart.service';
 })
 export class TabsPage implements OnInit {
 
-  itemsInCart : number;
+  numberOfItemsInCart: number;
 
-  constructor(private cartService : CartService) { 
-    this.itemsInCart = cartService.orders.getValue().length;
+  constructor(private cartService: CartService) {
   }
 
   ngOnInit() {
+    this.cartService.orders.subscribe(ord => {
+      this.numberOfItemsInCart = ord.length;
+    })
   }
-
 }

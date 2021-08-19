@@ -18,3 +18,20 @@
 .mealCard h1{
     color: green;
 }
+
+.colorCardIfAdded {
+    background-color: #92fa9b;
+}
+
+.dayLabelHidden {
+    visibility: hidden;
+}
+
+.dayLabel {
+    --ion-background-color: transparent;
+    border: 2px green solid;
+    border-radius: 15px; 
+    width: fit-content;
+    float: right;
+    margin: 5px;
+}
