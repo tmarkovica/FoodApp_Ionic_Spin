@@ -64,9 +64,9 @@ export class UserService {
           "query": "spUsersAzur",
           "params": {
             "action": "insert",
-            "name": "Vedran",
-            "email": "vedran.prpic1@gmail.com",
-            "password": "lozinka"
+            "name": username,
+            "email": email,
+            "password": password
           }
         }
       ]
