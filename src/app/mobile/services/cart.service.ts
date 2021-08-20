@@ -39,8 +39,10 @@ export class CartService {
     return index === -1;
   }
 
+
+  //promise.all
   private async storeOrderToApi(order: MenuDish) {
-    await this.http.post(this.url, {
+    return this.http.post(this.url, {
       "db": "Food",
       "queries": [
         {
@@ -60,11 +62,11 @@ export class CartService {
     });
   }
 
+  //pricekaj sve pa onda dalje
   async finishOrder() {
-    await this.orders.getValue().forEach(element => {
-      this.storeOrderToApi(element);
+    this.orders.getValue().forEach(async element => {
+      await this.storeOrderToApi(element);
     });
-
     this.orders.next([]);
     this.storageService.removeData('cart');
   }

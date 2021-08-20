@@ -21,6 +21,7 @@
       (click)="mealCardClicked_AddToCart(meal)" [isAdded]="meal.inCart"></app-meal>
   </span>
 
+  <!-- position absolute -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" [ngClass]="{'cartButtonHidden': orders?.length === 0}">
     <ion-badge>{{orders?.length || 0}}</ion-badge>
     <ion-fab-button [disabled]='false' (click)="showCart()" [routerLink]="['/mobile/tabs/cart']">
