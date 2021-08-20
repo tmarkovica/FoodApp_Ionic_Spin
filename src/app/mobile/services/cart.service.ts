@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { promise } from 'protractor';
 import { BehaviorSubject } from 'rxjs';
 import { MenuDish } from 'src/app/interfaces/menu-dish';
 import { UserOrder } from 'src/app/interfaces/user-order';
@@ -69,6 +70,15 @@ export class CartService {
     });
     this.orders.next([]);
     this.storageService.removeData('cart');
+
+/*
+    const apiCalls[];
+
+    apiCalls.push(this.storeOrderToApi())
+    await Promise.all(polje).then(()=> {
+      this.orders.next([]);
+      this.storageService.removeData('cart');
+    });*/
   }
 
   getOrdersForUser() {
