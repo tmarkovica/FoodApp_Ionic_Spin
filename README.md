@@ -1,4 +1,5 @@
 # Spin3
+// JUSTNOTES
 
 npm install //**
 
@@ -29,3 +30,10 @@ npm install -g firebase-tools
 
 firebase
 firebase login
+
+
+za mobitel
+----------
+
+ionic run
+ionic cap build android

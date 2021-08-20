@@ -23,8 +23,8 @@
 
   <!-- position absolute -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" [ngClass]="{'cartButtonHidden': orders?.length === 0}">
-    <ion-badge>{{orders?.length || 0}}</ion-badge>
-    <ion-fab-button [disabled]='false' (click)="showCart()" [routerLink]="['/mobile/tabs/cart']">
+    <ion-badge id="badgeIcon">{{orders?.length || 0}}</ion-badge>
+    <ion-fab-button [disabled]='false' [routerLink]="['/mobile/tabs/cart']">
       <ion-icon name="cart"></ion-icon>
     </ion-fab-button>
   </ion-fab>

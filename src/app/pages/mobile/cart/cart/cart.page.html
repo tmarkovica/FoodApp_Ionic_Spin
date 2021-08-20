@@ -5,13 +5,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-card>
-      <span>
-        <app-meal *ngFor="let order of orders; index as i" [menuDish]="order" [mealOrderDay]="order.day"></app-meal>
-      </span>
-    </ion-card>
-  </ion-list>
+  <span>
+    <app-meal *ngFor="let order of orders; index as i" [menuDish]="order" [mealOrderDay]="order.day"></app-meal>
+  </span>
 
 </ion-content>
 <ion-button expand='block' *ngIf="orders.length" (click)="finishOrder()">Finish order</ion-button>

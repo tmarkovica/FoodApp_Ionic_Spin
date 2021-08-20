@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 import { MenuDish } from 'src/app/interfaces/menu-dish';
 import { Restaurant } from 'src/app/interfaces/restaurant';
 import { CartService } from 'src/app/mobile/services/cart.service';
@@ -16,8 +15,6 @@ export class RestaurantPage implements OnInit {
   restaurant: Restaurant;
 
   currentDayMeals: MenuDish[];
-
-  _inCartDishes: BehaviorSubject<MenuDish[]> = new BehaviorSubject<MenuDish[]>([]); //***** */
 
   orders: MenuDish[];
 
@@ -60,37 +57,16 @@ export class RestaurantPage implements OnInit {
 
   search(event) {
     const query = event.detail.value.toLowerCase();
-    // this.filterMealsForCurrentDay();
-    //currentDayMeals - prazan array ako nema za taj dan jela
-    //if (!this.currentDayMeals) return;
     this.currentDayMeals = !query ? [...this.restaurant.menus[this.currentDay - 1]] : this.restaurant.menus[this.currentDay - 1].filter(r => r.name.toLowerCase().startsWith(event.detail.value.toLowerCase()));
     //sort i na pocetku; ili bez
     //this.currentDayMeals = !query ? [...this.currentDayMeals] : this.currentDayMeals.sort((a, b) => a.name.toLowerCase() !== b.name.toLowerCase() ? a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 : 0);
   }
 
   mealCardClicked_AddToCart(addedDish: MenuDish) {
-
-
     this.restaurant.menus[this.currentDay - 1].find(m => m == addedDish).inCart = !addedDish.inCart;
-    const cart = this._inCartDishes.getValue();
-    // if(se nalazi vec) {
-    //   //izbaci
-    // }
-    // else {
-    //   cart.push(addedDish);
-    //   this._inCartDishes.next(cart);
-    // }
-    this._inCartDishes.next([...cart, addedDish]);
+    /* const cart = this._inCartDishes.getValue();
+    this._inCartDishes.next([...cart, addedDish]); */
 
     addedDish.inCart = this.cartService.toggleDishInCart(addedDish);
-  }
-
-  showCart() {
-    /* const modal await this.modalCtrl.create({
-      Component: CartPage,
-      componentProps: {
-        modalPage: true;
-      }
-    }) */
   }
 }
