@@ -37,3 +37,4 @@ za mobitel
 
 ionic run
 ionic cap build android
+ionic cap run android -l --external
