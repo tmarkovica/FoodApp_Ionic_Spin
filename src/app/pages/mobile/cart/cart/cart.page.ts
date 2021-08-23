@@ -23,8 +23,7 @@ export class CartPage implements OnInit {
   }
 
   async finishOrder() {
-    await this.cartService.finishOrder();
-    this.presentToast();
+    await this.cartService.finishOrder().then(() => this.presentToast());
   }
 
   async presentToast() {

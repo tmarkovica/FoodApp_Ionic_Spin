@@ -1,17 +1,20 @@
 <ion-content>
-  <div class="days">
+  <ion-content class="days">
     <div class="day">
-      <img class="logo" src="assets/images/logobijeli-01 1.png" alt="">
+      <ion-img class="logo" src="assets/images/logobijeli-01 1.png" alt=""></ion-img>
     </div>
-  </div>
-
-  <div class="center">
-    <br><br>
+  </ion-content>
+  
+  <ion-list class="center">
     <h1>Add new meal</h1>
-    <br><br><br><br>
+
+    <allow-navigation></allow-navigation>
+    
     <ion-input placeholder="Meal Name" type="text" class="separate userInput" [(ngModel)]="mealName"></ion-input>
     <ion-input placeholder="Meal Description" type="text" class="separate userInput" [(ngModel)]="mealDescription">
     </ion-input>
+
+
 
     <ion-item>
       <ion-label>Soup: </ion-label>
@@ -28,5 +31,5 @@
 
     <ion-button (click)="cancelAddingNewMeal()" color="danger" class="separate">CANCEL</ion-button>
     <ion-button color="primary" class="separate" (click)="addNewMeal()">SAVE</ion-button>
-  </div>
+  </ion-list>
 </ion-content>

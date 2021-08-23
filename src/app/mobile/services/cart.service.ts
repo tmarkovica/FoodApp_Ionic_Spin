@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { promise } from 'protractor';
 import { BehaviorSubject } from 'rxjs';
 import { MenuDish } from 'src/app/interfaces/menu-dish';
 import { UserOrder } from 'src/app/interfaces/user-order';
@@ -40,9 +39,7 @@ export class CartService {
     return index === -1;
   }
 
-
-  //promise.all
-  private async storeOrderToApi(order: MenuDish) {
+  private async storeOrderToApi(order: MenuDish): Promise<{ ID: number }> {
     return this.http.post(this.url, {
       "db": "Food",
       "queries": [
@@ -59,26 +56,24 @@ export class CartService {
       if (val.length > 0) {
         console.log("Dish is stored to api:");
         console.log(val);
+        return val[0];
       }
+      return null;
     });
   }
 
-  //pricekaj sve pa onda dalje
   async finishOrder() {
-    this.orders.getValue().forEach(async element => {
-      await this.storeOrderToApi(element);
+    let apiCalls : Array<Promise<any>> = [];
+
+    this.orders.getValue().forEach(async (order : MenuDish) => {
+      apiCalls.push(this.storeOrderToApi(order));
     });
-    this.orders.next([]);
-    this.storageService.removeData('cart');
-
-/*
-    const apiCalls[];
-
-    apiCalls.push(this.storeOrderToApi())
-    await Promise.all(polje).then(()=> {
+    
+    await Promise.all(apiCalls).then(()=> {
+      console.log("gotovo");
       this.orders.next([]);
       this.storageService.removeData('cart');
-    });*/
+    });
   }
 
   getOrdersForUser() {
@@ -86,18 +81,18 @@ export class CartService {
       "db": "Food",
       "queries": [
         {
-            "query": "spOrdersQuery",
-            "params": {
-                "action": "forUser",
-                "userid": this.userService._user.getValue().userId
-            }
+          "query": "spOrdersQuery",
+          "params": {
+            "action": "forUser",
+            "userid": this.userService._user.getValue().userId
+          }
         }
-    ]
+      ]
     }).toPromise().then((val: UserOrder[]) => {
       if (val.length > 0) {
         this._allOrders.next(val);
       } else {
-        console.log("Couldn't get orders for user.");        
+        console.log("Couldn't get orders for user.");
       }
     });
   }

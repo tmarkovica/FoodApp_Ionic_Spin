@@ -32,22 +32,17 @@ export class RestaurantPage implements OnInit {
 
       this.filterMealsForCurrentDay();
       this.orders = this.cartService.orders.getValue();
-      this.showForDay();
       this.cartService.orders.subscribe(orders => {
         this.orders = orders;
       });
     });
   }
 
-  showForDay() {
+  filterMealsForCurrentDay() {
     this.currentDayMeals = this.restaurant.menus[this.currentDay - 1].map(dish => {
-      dish.inCart = !!this.orders.find(o => o.day === dish.day && o.dishId === dish.dishId);
+      dish.inCart = !!this.orders?.find(o => o.day === dish.day && o.dishId === dish.dishId);
       return dish;
     })
-  }
-
-  filterMealsForCurrentDay() {
-    this.currentDayMeals = this.restaurant.menus[this.currentDay - 1];
   }
 
   navbarClickChangeDay(day: number) {
@@ -55,11 +50,19 @@ export class RestaurantPage implements OnInit {
     this.filterMealsForCurrentDay();
   }
 
+  private filterMealsThatStartWith(query: string) {
+    this.currentDayMeals = !query ? [...this.restaurant.menus[this.currentDay - 1]] : this.restaurant.menus[this.currentDay - 1].filter(r => r.name.toLowerCase().startsWith(query));
+  }
+
+  private sortMealsAlphabetically(query: string) {
+    this.currentDayMeals = !query ? [...this.currentDayMeals] : this.currentDayMeals.sort((a, b) => a.name.toLowerCase() !== b.name.toLowerCase() ? a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 : 0);
+  }
+
   search(event) {
     const query = event.detail.value.toLowerCase();
-    this.currentDayMeals = !query ? [...this.restaurant.menus[this.currentDay - 1]] : this.restaurant.menus[this.currentDay - 1].filter(r => r.name.toLowerCase().startsWith(event.detail.value.toLowerCase()));
+    this.filterMealsThatStartWith(query);
     //sort i na pocetku; ili bez
-    //this.currentDayMeals = !query ? [...this.currentDayMeals] : this.currentDayMeals.sort((a, b) => a.name.toLowerCase() !== b.name.toLowerCase() ? a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 : 0);
+    //this.sortMealsAlphabetically(query);
   }
 
   mealCardClicked_AddToCart(addedDish: MenuDish) {
