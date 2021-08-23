@@ -8,13 +8,16 @@
   <ion-list class="center">
     <h1>Add new meal</h1>
 
-    <allow-navigation></allow-navigation>
+    <ion-item>
+      <ion-img [ngStyle]="{'background-image': image}" slidesPerView="1" id="mealImage"></ion-img>
+    </ion-item>
+    <ion-input type="file" accept="image/*" (ionChange)="chooseImage($event)"></ion-input>
     
     <ion-input placeholder="Meal Name" type="text" class="separate userInput" [(ngModel)]="mealName"></ion-input>
     <ion-input placeholder="Meal Description" type="text" class="separate userInput" [(ngModel)]="mealDescription">
     </ion-input>
 
-
+    
 
     <ion-item>
       <ion-label>Soup: </ion-label>

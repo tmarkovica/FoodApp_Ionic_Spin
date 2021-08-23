@@ -51,4 +51,31 @@ export class NewMealPage implements OnInit {
     });
     toast.present();
   }
+
+  image : string;
+  file: File;
+  uri :string;
+
+  chooseImage($event : any) {
+    this.image = `url("assets/restorani/restoran1.jpg")`;
+
+    try {
+      this.file = $event.target.files[0];
+      console.log(this.file);
+    } catch(err) {
+      console.log(err);
+    }
+    
+
+    console.log($event);
+    console.log($event.detail.value);
+    this.image = $event.target;
+    
+    console.log($event.input);
+
+    this.uri = $event.path[0].baseURI;
+    console.log(this.uri);
+    
+    
+  }
 }
