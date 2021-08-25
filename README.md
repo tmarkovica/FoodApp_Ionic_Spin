@@ -1,6 +1,4 @@
 # Spin3
-https://tmark-spin.firebaseapp.com/web/dashboard
-
 // JUSTNOTES
 
 npm install //**
