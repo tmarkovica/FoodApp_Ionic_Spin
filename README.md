@@ -31,6 +31,8 @@ npm install -g firebase-tools
 firebase
 firebase login
 
+firebase deploy
+
 
 za mobitel
 ----------

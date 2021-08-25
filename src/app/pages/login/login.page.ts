@@ -18,8 +18,8 @@ export class LoginPage implements OnInit {
     })
   }
 
-  username: string = "tmark@gmail.com"; // "vedran.prpic1@gmail.com"; //"";
-  password: string = "tmark"; // "lozinka"; //
+  username: string = ""; // "vedran.prpic1@gmail.com"; //"";
+  password: string = ""; // "lozinka"; //
 
   showRegistration:boolean = false;
   
