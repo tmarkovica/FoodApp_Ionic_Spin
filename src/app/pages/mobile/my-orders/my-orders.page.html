@@ -4,14 +4,21 @@
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
     <ion-title>My orders</ion-title>
+
+    <ion-buttons slot="secondary">
+      <ion-button>
+        Group
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  
   <app-days-navbar (changed)="navbarClickChangeDay($event)"></app-days-navbar>
 
   <span>
-    <app-meal *ngFor="let order of currentDayOrders; index as i" [userOrder]="order"></app-meal>
+    <app-meal *ngFor="let order of currentDayOrders; index as i" [userOrder]="order" [mealImage]="getMealImage(order.dishName)"></app-meal>
   </span>
 
 </ion-content>

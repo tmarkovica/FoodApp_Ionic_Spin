@@ -11,18 +11,17 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item>My profile</ion-item>
+        <ion-item  href="">My profile</ion-item>
         <ion-item (click)="closeMenu()" [routerLink]="['/web/menu']">Day meals</ion-item>
         <ion-item (click)="closeMenu()" [routerLink]="['/web/dashboard']">Order overview</ion-item>
-        <ion-item (click)="logOut()">Log out</ion-item>
-        <ion-item (click)="closeMenu()">close menu</ion-item>
+        <ion-item (click)="logOut()" href="">Log out</ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
 
   <ion-router-outlet id="main"></ion-router-outlet>
 
-  <ion-fab id="main" vertical="top" horizontal="end" slot="fixed" [hidden]="isMobile">
+  <ion-fab id="main" vertical="top" horizontal="end" slot="fixed" [ngClass]="{'fabBtn': isMobile}">
     <ion-fab-button (click)="openMenu()">
       <ion-icon name="menu-outline"></ion-icon>
     </ion-fab-button>

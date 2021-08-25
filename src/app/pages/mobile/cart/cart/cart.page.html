@@ -6,7 +6,7 @@
 
 <ion-content>
   <span>
-    <app-meal *ngFor="let order of orders; index as i" [menuDish]="order" [mealOrderDay]="order.day"></app-meal>
+    <app-meal *ngFor="let order of orders; index as i" [menuDish]="order" [mealOrderDay]="order.day" [mealImage]="getMealImage(order.name)"></app-meal>
   </span>
 
 </ion-content>

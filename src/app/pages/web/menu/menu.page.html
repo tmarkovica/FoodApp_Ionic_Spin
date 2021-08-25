@@ -14,7 +14,8 @@
       <ion-content class="mealsBlock">
         <span id="cardDish_allDishesOfRestaurant">
           <app-meal *ngFor="let order of allDishesOfRestaurant; index as i" [allDishesOfRestaurant]="order"
-            (click)="mealCardClicked_AddDishToMenu(i)" [isAdded]="currentDayMenu_IncludesDishFrom_AllDishesOfRestaurnat_AtIndex(i)"></app-meal>
+            (click)="mealCardClicked_AddDishToMenu(i)" [isAdded]="currentDayMenu_IncludesDishFrom_AllDishesOfRestaurnat_AtIndex(i)"
+            [mealImage]="getMealImage(order.Name)"></app-meal>
         </span>
       </ion-content>
       <ion-button (click)="addNewMealButtonClick()" id="buttonNewMeal">ADD NEW MEAL</ion-button>
@@ -26,7 +27,7 @@
       <ion-content class="mealsBlock">
         <span id="cardDish_onTheMenu">
           <app-meal *ngFor="let order of menuForWeekAndCompany_currentDayMenu; index as i" [menuForWeek]="order"
-            (click)="mealCardClicked_RemoveDishFromMenu(i)"></app-meal>
+            (click)="mealCardClicked_RemoveDishFromMenu(i)" [mealImage]="getMealImage(order.name)"></app-meal>
         </span>
       </ion-content>
     </ion-col>

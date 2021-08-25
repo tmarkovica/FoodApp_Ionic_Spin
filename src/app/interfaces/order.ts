@@ -6,7 +6,7 @@ export interface Order {
     firmaid: number
     jelo: string
     narucitelj: string
-    naruciteljid: number
+    naruciteljId: number
     restoran: string
     restoranid: number
     soup: boolean

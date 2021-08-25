@@ -4,20 +4,36 @@
       <ion-img class="logo" src="assets/images/logobijeli-01 1.png" alt=""></ion-img>
     </div>
   </ion-content>
-  
+
   <ion-list class="center">
     <h1>Add new meal</h1>
 
-    <ion-item>
-      <ion-img [ngStyle]="{'background-image': image}" slidesPerView="1" id="mealImage"></ion-img>
-    </ion-item>
-    <ion-input type="file" accept="image/*" (ionChange)="chooseImage($event)"></ion-input>
-    
+    <input type="file" id="fileLoader" #fileLoader name="files" title="Load File" hidden />
+    <ion-toolbar color="primary">
+      <ion-buttons>
+        <button class="buttonsManageImage" ion-button icon-left (click)="presentActionSheet(fileLoader)">
+          <ion-icon name="camera"></ion-icon>Select Image
+        </button>
+        <button class="buttonsManageImage" ion-button icon-right (click)="removePic()"
+          [disabled]="uploadImage === null">
+          <ion-icon name="trash"></ion-icon>Remove
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+    <span *ngIf="uploadImage != null">
+      <img id="checkinImage" [src]="uploadImage" (load)="imageLoaded()" />
+    </span>
+    <span *ngIf="processing">
+      <ion-spinner></ion-spinner>
+      <h1>Processing...</h1>
+    </span>
+
+
     <ion-input placeholder="Meal Name" type="text" class="separate userInput" [(ngModel)]="mealName"></ion-input>
     <ion-input placeholder="Meal Description" type="text" class="separate userInput" [(ngModel)]="mealDescription">
     </ion-input>
 
-    
+
 
     <ion-item>
       <ion-label>Soup: </ion-label>

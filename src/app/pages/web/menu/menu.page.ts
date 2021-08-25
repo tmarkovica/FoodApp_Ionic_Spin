@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { MenuItem } from 'src/app/interfaces/menu-item';
 import { Dish } from 'src/app/interfaces/dish';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
+import { MealImageService } from 'src/app/services/meal-image.service';
+import { relative } from '@angular-devkit/core';
 
 @Component({
   selector: 'app-menu',
@@ -22,7 +24,8 @@ export class MenuPage implements OnInit {
 
   constructor(
     private router: Router,
-    private restaurauntService: RestaurantService) { }
+    private restaurauntService: RestaurantService,
+    private mealImageService: MealImageService) { }
 
   private filterWeekMenuForCurrentday() {
     this.menuForWeekAndCompany_currentDayMenu = this.menuForWeekAndCompany.filter(o => o.day == this.currentDay);
@@ -107,5 +110,9 @@ export class MenuPage implements OnInit {
     this.collectDataBeforeFiltering();
     this.filterAllDishesOfRestaurantThatStartWith(this.searchInput);
     this.sortAllDishesOfRestaurantAlphabetically();
+  }
+
+  getMealImage(mealName: string) {
+    return this.mealImageService.getImageByName(mealName);
   }
 }

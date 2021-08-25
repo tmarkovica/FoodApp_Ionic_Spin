@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MenuDish } from 'src/app/interfaces/menu-dish';
 import { Restaurant } from 'src/app/interfaces/restaurant';
 import { CartService } from 'src/app/mobile/services/cart.service';
+import { MealImageService } from 'src/app/services/meal-image.service';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
 
 @Component({
@@ -23,7 +24,8 @@ export class RestaurantPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private restaurantService: RestaurantService,
-    private cartService: CartService) { }
+    private cartService: CartService,
+    private mealImageService : MealImageService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -67,9 +69,10 @@ export class RestaurantPage implements OnInit {
 
   mealCardClicked_AddToCart(addedDish: MenuDish) {
     this.restaurant.menus[this.currentDay - 1].find(m => m == addedDish).inCart = !addedDish.inCart;
-    /* const cart = this._inCartDishes.getValue();
-    this._inCartDishes.next([...cart, addedDish]); */
-
     addedDish.inCart = this.cartService.toggleDishInCart(addedDish);
+  }
+
+  getMealImage(mealName: string) {
+    return this.mealImageService.getImageByName(mealName);
   }
 }

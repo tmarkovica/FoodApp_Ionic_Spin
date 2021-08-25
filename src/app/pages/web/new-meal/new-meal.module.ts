@@ -13,8 +13,10 @@ import { NewMealPage } from './new-meal.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    NewMealPageRoutingModule
+    NewMealPageRoutingModule,
   ],
+  providers: [],
+  exports: [],
   declarations: [NewMealPage]
 })
 export class NewMealPageModule {}

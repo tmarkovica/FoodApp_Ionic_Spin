@@ -49,11 +49,7 @@ const routes: Routes = [
   {
     path: '**',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
-  },
-  {
-    path: 'my-orders',
-    loadChildren: () => import('./pages/mobile/my-orders/my-orders.module').then(m => m.MyOrdersPageModule)
-  },
+  }
 ];
 @NgModule({
   imports: [

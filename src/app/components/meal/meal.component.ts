@@ -4,6 +4,7 @@ import { Order } from 'src/app/interfaces/order';
 import { Dish } from 'src/app/interfaces/dish';
 import { MenuDish } from 'src/app/interfaces/menu-dish';
 import { UserOrder } from 'src/app/interfaces/user-order';
+import { MealImageService } from 'src/app/services/meal-image.service';
 
 @Component({
   selector: 'app-meal',
@@ -16,6 +17,7 @@ export class MealComponent implements OnInit {
   @Input() mealOrderDay : number;
   dayNames = ["mon","tue","wed","thu","fri"];
 
+  @Input() mealImage : string;
 
   @Input() order : Order;
   @Input() allDishesOfRestaurant : Dish;
@@ -28,6 +30,7 @@ export class MealComponent implements OnInit {
   soup : boolean = false;
   salad : boolean = false;
   bread : boolean = false;
+  @Input() quantity : number = 0;
 
   constructor() {
   }

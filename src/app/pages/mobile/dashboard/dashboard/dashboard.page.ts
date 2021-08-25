@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Restaurant } from 'src/app/interfaces/restaurant';
+import { MealImageService } from 'src/app/services/meal-image.service';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
 
 @Component({
@@ -37,7 +38,7 @@ export class DashboardPage implements OnInit {
   setImages() {
     this.allRestaurants.forEach(r => {
       const random = Math.floor(Math.random() * 5) + 1;
-      r.image = `url("assets/restorani/restoran${random}.jpg")`
+      r.image = `url("assets/restorani/restoran${random}.jpg")`;
     });
   }
 

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, Platform } from '@ionic/angular';
 import { CartService } from './mobile/services/cart.service';
-//import { platform } from 'os';
 import { StorageService } from './services/storage/storage.service';
 import { UserService } from './services/user/user.service';
 
@@ -46,9 +45,6 @@ export class AppComponent {
         }
       }
     });
-
-    
-
   }
 
   initializeApp(){
@@ -71,5 +67,4 @@ export class AppComponent {
     this.userService.logOut();
     this.closeMenu();
   }
-
 }

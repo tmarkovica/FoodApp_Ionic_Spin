@@ -5,22 +5,34 @@
   <h1 id="heading">ORDERS OVERVIEW</h1>
   <ion-searchbar showCancelButton="focus" cancelButtonText="Custom Cancel" id="searchbar" position="floating">
   </ion-searchbar>
+  
+  <ion-button class="listCyclingButtons" (click)="ordersListNext()">+</ion-button>
+  <ion-button class="listCyclingButtons" (click)="ordersListBack()">-</ion-button>
 
   <ion-grid>
     <ion-col>
-      <h2>Spin</h2>
-      <p>Županijska 15</p>
-      <span *ngFor="let order of orders; "><app-meal [order]="order"></app-meal></span>
+      <h2>{{ordersSortedByClient[displayIndexes[0]][0].narucitelj}}</h2>
+      <p>Company Adress</p>
+      <span *ngFor="let order of ordersSortedByClientAndDay_noRepeats[0];">
+        <app-meal [order]="order" [mealImage]="getMealImage(order.jelo)"
+          [quantity]="getAmountOf(order.jelo, displayIndexes[0])"></app-meal>
+      </span>
     </ion-col>
     <ion-col>
-      <h2>Company Name</h2>
+      <h2>{{ordersSortedByClient[displayIndexes[1]][0].narucitelj}}</h2>
       <p>Company Adress</p>
-      <span *ngFor="let order of orders; "><app-meal [order]="order"></app-meal></span>
+      <span *ngFor="let order of ordersSortedByClientAndDay_noRepeats[1];">
+        <app-meal [order]="order" [mealImage]="getMealImage(order.jelo)"
+          [quantity]="getAmountOf(order.jelo, displayIndexes[0])"></app-meal>
+      </span>
     </ion-col>
     <ion-col>
-      <h2>Company Name</h2>
+      <h2>{{ordersSortedByClient[displayIndexes[2]][0].narucitelj}}</h2>
       <p>Company Adress</p>
-      <span *ngFor="let order of orders; "><app-meal [order]="order"></app-meal></span>
+      <span *ngFor="let order of ordersSortedByClientAndDay_noRepeats[2];">
+        <app-meal [order]="order" [mealImage]="getMealImage(order.jelo)"
+          [quantity]="getAmountOf(order.jelo, displayIndexes[0])"></app-meal>
+      </span>
     </ion-col>
   </ion-grid>
 

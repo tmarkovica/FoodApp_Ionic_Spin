@@ -18,7 +18,7 @@
 
   <span>
     <app-meal *ngFor="let meal of currentDayMeals; index as i" [menuDish]="meal"
-      (click)="mealCardClicked_AddToCart(meal)" [isAdded]="meal.inCart"></app-meal>
+      (click)="mealCardClicked_AddToCart(meal)" [isAdded]="meal.inCart" [mealImage]="getMealImage(meal.name)"></app-meal>
   </span>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" [ngClass]="{'cartButtonHidden': orders?.length === 0}">

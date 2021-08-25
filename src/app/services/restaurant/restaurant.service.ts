@@ -106,18 +106,18 @@ export class RestaurantService {
       console.log("GetOrdersForCompany");
       console.log(val.allOrders);
 
-      console.log("allDishesOfRestaurant:")
-      console.log(val.allDishesOfRestaurant);
+      //console.log("allDishesOfRestaurant:")
+      //console.log(val.allDishesOfRestaurant);
       this._allDishesOfRestaurant.next(val.allDishesOfRestaurant);
 
-      console.log("getMenuForWeekAndCompany()");
-      console.log(val.menuForWeekAndCompany);
+      //console.log("getMenuForWeekAndCompany()");
+      //console.log(val.menuForWeekAndCompany);
       this._menuForWeek.next(val.menuForWeekAndCompany);
     });
   }
 
   addNewMeal(name: string, description: string, soup: boolean, salad: boolean, bread: boolean) { // AddNewDish
-    this.http.post(this.url, {
+    return this.http.post(this.url, {
       "db": "Food",
       "queries": [
         {
@@ -137,8 +137,8 @@ export class RestaurantService {
     }).toPromise().then((val: string) => {
       console.log("New Meal Added: ");
       console.log(val);
-      
       this.initRestaurauntForCompanyUser(); // calls api again because there is no reply to get dishId
+      return val;
     });
   }
 

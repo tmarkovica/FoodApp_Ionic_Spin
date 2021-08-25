@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { MenuDish } from 'src/app/interfaces/menu-dish';
 import { CartService } from 'src/app/mobile/services/cart.service';
+import { MealImageService } from 'src/app/services/meal-image.service';
 
 @Component({
   selector: 'app-cart',
@@ -14,7 +15,8 @@ export class CartPage implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private toastController : ToastController) { }
+    private toastController : ToastController,
+    private mealImageService: MealImageService) { }
 
   ngOnInit() {
     this.cartService.orders.subscribe(orders => {
@@ -33,5 +35,9 @@ export class CartPage implements OnInit {
       color: 'success'
     });
     toast.present();
+  }
+
+  getMealImage(mealName: string) {
+    return this.mealImageService.getImageByName(mealName);
   }
 }
