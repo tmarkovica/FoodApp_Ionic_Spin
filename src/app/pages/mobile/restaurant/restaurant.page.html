@@ -17,7 +17,7 @@
   </ion-searchbar>
 
   <span>
-    <app-meal *ngFor="let meal of currentDayMeals; index as i" [menuDish]="meal"
+    <app-meal *ngFor="let meal of currentDayMeals" [menuDish]="meal"
       (click)="mealCardClicked_AddToCart(meal)" [isAdded]="meal.inCart" [mealImage]="getMealImage(meal.name)"></app-meal>
   </span>
 

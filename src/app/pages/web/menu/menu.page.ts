@@ -59,7 +59,7 @@ export class MenuPage implements OnInit {
     this.filterWeekMenuForCurrentday();
   }
 
-  private currentDayMenu_IncludesDishFrom_AllDishesOfRestaurnat_AtIndex(i: number): boolean {
+  currentDayMenu_IncludesDishFrom_AllDishesOfRestaurnat_AtIndex(i: number): boolean {
     return this.menuForWeekAndCompany_currentDayMenu.find(o => o.name == this.allDishesOfRestaurant[i].Name) !== undefined;
   }
 

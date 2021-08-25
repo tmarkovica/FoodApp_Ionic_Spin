@@ -55,17 +55,23 @@ export class DashboardPage implements OnInit {
   }
 
   private filterOrdersByDay() {
+
     this.ordersSortedByClientAndDay = [];
     for (let i = 0; i < this.ordersSortedByClient.length; i++) {
       this.ordersSortedByClientAndDay[i] = [];
-      this.ordersSortedByClientAndDay[i] = this.ordersSortedByClient[i].filter(o => o.dan === this.daysNamesCro[this.currentDay - 1]);
+      this.ordersSortedByClientAndDay[i] = this.ordersSortedByClient[i]?.filter(o => o.dan === this.daysNamesCro[this.currentDay - 1]);
     }
   }
 
   private spliceRepeatingOrders() {
+    
     let tempMealName: string;
 
-    for (let i = 0; i < 3; i++) {
+    let upperLimit = this.ordersSortedByClientAndDay.length;
+    if (upperLimit > 3)
+      upperLimit = 3;
+
+    for (let i = 0; i < upperLimit; i++) {
 
       this.displayNames[i] = this.ordersSortedByClientAndDay[this.displayIndexes[i]][0]?.narucitelj;
 
@@ -91,6 +97,8 @@ export class DashboardPage implements OnInit {
         return;
 
       this.orders = val;
+      console.log("this.orders ", val);
+      
 
       this.sortOrdersByClients();
       this.filterOrdersByDay();
@@ -102,7 +110,7 @@ export class DashboardPage implements OnInit {
     this.currentDay = day;
     if (this.orders.length === 0)
       return;
-
+      console.log("this.orders ", this.orders);
     this.filterOrdersByDay();
     this.spliceRepeatingOrders();
   }

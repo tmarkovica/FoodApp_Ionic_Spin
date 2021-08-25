@@ -9,14 +9,16 @@ import { DashboardPageRoutingModule } from './dashboard-routing.module';
 import { DashboardPage } from './dashboard.page';
 import { MealComponent } from 'src/app/components/meal/meal.component';
 import { DaysNavbarComponent } from 'src/app/components/days-navbar/days-navbar.component';
+import { ComponentsWebModule } from 'src/app/components/components-web/components-web.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DashboardPageRoutingModule
+    DashboardPageRoutingModule,
+    ComponentsWebModule
   ],
-  declarations: [DashboardPage, MealComponent, DaysNavbarComponent],
+  declarations: [DashboardPage],
 })
 export class DashboardPageModule {}

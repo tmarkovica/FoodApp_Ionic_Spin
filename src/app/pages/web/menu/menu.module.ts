@@ -7,8 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { MenuPageRoutingModule } from './menu-routing.module';
 
 import { MenuPage } from './menu.page';
-import { DaysNavbarComponent } from 'src/app/components/days-navbar/days-navbar.component';
-import { MealComponent } from 'src/app/components/meal/meal.component';
+import { ComponentsWebModule } from 'src/app/components/components-web/components-web.module';
 
 @NgModule({
   imports: [
@@ -16,7 +15,8 @@ import { MealComponent } from 'src/app/components/meal/meal.component';
     FormsModule,
     IonicModule,
     MenuPageRoutingModule,
+    ComponentsWebModule
   ],
-  declarations: [MenuPage, MealComponent, DaysNavbarComponent],
+  declarations: [MenuPage],
 })
 export class MenuPageModule {}

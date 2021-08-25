@@ -4,17 +4,15 @@ import { MealComponent } from '../meal/meal.component';
 import { DaysNavbarComponent } from 'src/app/mobile/components/days-navbar/days-navbar.component';
 
 @NgModule({
-  declarations: [
-    MealComponent,
-    DaysNavbarComponent
-  ],
+  declarations: [DaysNavbarComponent, MealComponent],
   imports: [
     CommonModule
   ],
   exports: [
-    MealComponent,
-    DaysNavbarComponent
+    DaysNavbarComponent,
+    MealComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ComponentsModule { }
+export class ComponentsMobileModule { }
+
