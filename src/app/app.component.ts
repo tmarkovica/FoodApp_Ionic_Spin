@@ -28,7 +28,7 @@ export class AppComponent {
     this.userService._user.subscribe(val => {
       this.loggedIn = val != null;
     });
-    this.userService.logiran.subscribe((value) => this.loggedIn = value);
+    this.userService._loggedIn.subscribe((value) => this.loggedIn = value);
 
     console.log();
     storageService.getData("storedUser").then(val => {

@@ -17,7 +17,7 @@ export class MyOrdersPage implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private mealImageService : MealImageService) { }
+    private mealImageService: MealImageService) { }
 
   ngOnInit() {
     this.cartService._allOrders.subscribe(res => {
@@ -30,36 +30,55 @@ export class MyOrdersPage implements OnInit {
   }
 
   private filterOrdersForCurrentDay() {
-    this.currentDayOrders = this.myOrders.filter(o => o.day == this.currentDay);
+    this.currentDayOrders = this.myOrders.filter(o => o.day === this.currentDay);
   }
 
   navbarClickChangeDay(day: number) {
+    if (this.myOrders?.length === 0)
+        return;
+        
     this.currentDay = day;
     this.filterOrdersForCurrentDay();
+    this.grouped = false;
   }
 
   getMealImage(mealName: string) {
     return this.mealImageService.getImageByName(mealName);
   }
 
+  grouped = false;
+
   private spliceRepeatingOrders() {
-    /* let tempMealName: string;
+    let tempMealName: string;
 
-    for (let i = 0; i < 3; i++) {
+    let tempGroupedCurrentDayOrders = [...this.currentDayOrders];
 
-      this.ordersSortedByClientAndDay_noRepeats[i] = [...this.ordersSortedByClientAndDay[this.displayIndexes[i]]];
+    for (let i = 0; i < tempGroupedCurrentDayOrders.length; i++) {
 
-      for (let j = 0; j < this.ordersSortedByClientAndDay_noRepeats[i].length; j++) {
+      tempMealName = tempGroupedCurrentDayOrders[i].dishName;
 
-        tempMealName = this.ordersSortedByClientAndDay_noRepeats[i][j].jelo;
-
-        for (let k = j + 1; k < this.ordersSortedByClientAndDay_noRepeats[i].length; k++) {
-          if (this.ordersSortedByClientAndDay_noRepeats[i][k].jelo === tempMealName) {
-            this.ordersSortedByClientAndDay_noRepeats[i].splice(k, 1);
-            k--;
-          }
+      for (let j = i + 1; j < tempGroupedCurrentDayOrders.length; j++) {
+        if (tempGroupedCurrentDayOrders[j].dishName === tempMealName) {
+          tempGroupedCurrentDayOrders.splice(j, 1);
+          j--;
         }
       }
-    } */
+    }
+    this.currentDayOrders = [...tempGroupedCurrentDayOrders];
+  }
+
+  toggleGrouping() {
+    if (!this.grouped) {
+      this.grouped = true;
+      this.spliceRepeatingOrders();
+    }
+    else {
+      this.filterOrdersForCurrentDay();
+      this.grouped = false;
+    }
+  }
+
+  getAmountOf(mealName) {
+    return this.myOrders.filter(o => o.day === this.currentDay && o.dishName === mealName).length;
   }
 }

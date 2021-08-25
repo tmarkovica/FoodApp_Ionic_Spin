@@ -8,9 +8,14 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class LoginPage implements OnInit {
 
+  loggedIn = false;
+
   constructor(private service: UserService) { }
 
   ngOnInit() {
+    this.service._loggedIn.subscribe(state => {
+      this.loggedIn = state;
+    })
   }
 
   username: string = "tmark@gmail.com"; // "vedran.prpic1@gmail.com"; //"";

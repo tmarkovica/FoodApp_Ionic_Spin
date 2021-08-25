@@ -10,13 +10,14 @@ import { RestaurantService } from 'src/app/services/restaurant/restaurant.servic
 })
 export class DashboardPage implements OnInit {
 
-  orders: Array<Order>; // all orders for company
+  orders: Array<Order> = []; // all orders for company
 
   ordersSortedByClient: Order[][] = [];
   ordersSortedByClientAndDay: Order[][] = [];
   ordersSortedByClientAndDay_noRepeats: Order[][] = [];
 
   displayIndexes = [0, 1, 2];
+  displayNames = ['Company name', 'Company name', 'Company name'];
 
   daysNamesCro = ["Ponedjeljak", "Utorak", "Srijeda", "Četvrtak", "Petak"];
 
@@ -27,6 +28,8 @@ export class DashboardPage implements OnInit {
     private mealImageService: MealImageService) {}
 
   private sortOrdersByClients() {
+    console.log("sortOrdersByClients()");
+    
     let tempArr: Order[] = [...this.orders];
 
     tempArr.sort((a, b) => a.naruciteljId !== b.naruciteljId ? a.naruciteljId < b.naruciteljId ? -1 : 1 : 0);
@@ -64,6 +67,8 @@ export class DashboardPage implements OnInit {
 
     for (let i = 0; i < 3; i++) {
 
+      this.displayNames[i] = this.ordersSortedByClientAndDay[this.displayIndexes[i]][0]?.narucitelj;
+
       this.ordersSortedByClientAndDay_noRepeats[i] = [...this.ordersSortedByClientAndDay[this.displayIndexes[i]]];
 
       for (let j = 0; j < this.ordersSortedByClientAndDay_noRepeats[i].length; j++) {
@@ -82,7 +87,11 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.restaurauntService._orders.subscribe(val => {
+      if (val.length === 0)
+        return;
+
       this.orders = val;
+
       this.sortOrdersByClients();
       this.filterOrdersByDay();
       this.spliceRepeatingOrders();
@@ -91,6 +100,9 @@ export class DashboardPage implements OnInit {
 
   navbarClickChangeDay(day: number) {
     this.currentDay = day;
+    if (this.orders.length === 0)
+      return;
+
     this.filterOrdersByDay();
     this.spliceRepeatingOrders();
   }

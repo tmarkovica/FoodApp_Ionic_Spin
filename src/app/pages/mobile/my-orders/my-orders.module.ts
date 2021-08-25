@@ -9,14 +9,16 @@ import { MyOrdersPageRoutingModule } from './my-orders-routing.module';
 import { MyOrdersPage } from './my-orders.page';
 import { MealComponent } from 'src/app/components/meal/meal.component';
 import { DaysNavbarComponent } from 'src/app/mobile/components/days-navbar/days-navbar.component';
+import { ComponentsModule } from 'src/app/components/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MyOrdersPageRoutingModule
+    MyOrdersPageRoutingModule,
+    ComponentsModule
   ],
-  declarations: [MyOrdersPage, MealComponent, DaysNavbarComponent]
+  declarations: [MyOrdersPage]
 })
 export class MyOrdersPageModule {}

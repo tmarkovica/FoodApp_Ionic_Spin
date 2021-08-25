@@ -4,7 +4,6 @@ import { ToastController } from '@ionic/angular';
 import { RestaurantService } from 'src/app/services/restaurant/restaurant.service';
 import { NavController } from '@ionic/angular';
 import { MealImageService } from 'src/app/services/meal-image.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-new-meal',
@@ -102,7 +101,7 @@ export class NewMealPage implements OnInit {
     }
   }
 
-  private imageLoaded() {
+  imageLoaded() {
     this.processing = false;
   }
 
@@ -171,7 +170,7 @@ export class NewMealPage implements OnInit {
     img.src = srcBase64;
   }
 
-  private removePic() {
+  removePic() {
     this.uploadImage = null;
   }
 }

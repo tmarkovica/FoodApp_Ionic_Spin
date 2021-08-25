@@ -14,7 +14,7 @@ export class UserService {
 
   url: string = "https://jupitermobiletest.jupiter-software.com:30081/jupitermobilex/gen/api/food";
 
-  logiran: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  _loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isMobile: boolean;
 
   _user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
@@ -41,7 +41,7 @@ export class UserService {
       ]
     }).subscribe((res: Array<User>) => {
       if (res.length == 1) {
-        this.logiran.next(true);
+        this._loggedIn.next(true);
         console.log("User logged in.");
         console.log(res);
         this._user.next(res[0]);
@@ -109,7 +109,7 @@ export class UserService {
   }
 
   logOut() {
-    this.logiran.next(false);
+    this._loggedIn.next(false);
     this._user.next(null);
 
     this.storageService.removeData("storedUser")
