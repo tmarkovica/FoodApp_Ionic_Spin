@@ -2,7 +2,7 @@
 
 App on firebase: \
 https://tmark-spin.web.app/web/dashboard \
-https://tmark-spin.firebaseapp.com/ \
+https://tmark-spin.firebaseapp.com/
 
 # MYNOTES
 ## za mobitel
